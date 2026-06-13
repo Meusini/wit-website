@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="nl" data-navfont="serif">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>De looks — Wit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Kalam:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ============ Head ============ */
+    .lk-head {
+      padding: clamp(64px, 8vw, 120px) var(--gutter) clamp(40px, 5vw, 72px);
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .lk-eyebrow { margin-bottom: 28px; display: block; }
+    .lk-title {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 9vw, 144px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      margin: 0 0 32px;
+    }
+    .lk-title em { font-family: var(--font-accent); font-style: italic; font-weight: 300; }
+    .lk-sub {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: clamp(18px, 1.6vw, 22px);
+      color: var(--ink-70);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* ============ Lookbook gallery ============ */
+    .lk-gallery {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: clamp(48px, 6vw, 96px) var(--gutter) clamp(72px, 9vw, 140px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: clamp(28px, 5vw, 96px);
+      row-gap: clamp(48px, 7vw, 120px);
+      align-items: start;
+    }
+    /* Editorial stagger — push the right column down */
+    .lk:nth-child(even) { margin-top: clamp(48px, 9vw, 160px); }
+
+    .lk { display: block; position: relative; }
+    .lk-media {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: var(--cream);
+    }
+    .lk-media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(.23,1,.32,1);
+    }
+    .lk:hover .lk-media img { transform: scale(1.04); }
+    .lk-index {
+      position: absolute;
+      top: 18px; left: 18px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: var(--ls-wide);
+      color: #fff;
+      white-space: nowrap;
+      mix-blend-mode: difference;
+    }
+    .lk-shop {
+      position: absolute;
+      left: 18px; bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(2px);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .3s, transform .3s;
+    }
+    .lk:hover .lk-shop { opacity: 1; transform: translateY(0); }
+
+    .lk-cap {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .lk-name {
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      font-size: clamp(22px, 2.2vw, 30px);
+      line-height: 1.1;
+      margin: 0;
+    }
+    .lk-name em { font-family: var(--font-accent); font-style: italic; }
+    .lk-price {
+      font-size: 13px;
+      color: var(--ink-70);
+      white-space: nowrap;
+    }
+    .lk-pieces {
+      margin-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+    }
+
+    /* Closing line */
+    .lk-foot {
+      text-align: center;
+      padding: 0 var(--gutter) clamp(96px, 11vw, 180px);
+    }
+    .lk-foot p {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: clamp(22px, 2.6vw, 34px);
+      color: var(--ink);
+      max-width: 640px;
+      margin: 0 auto 32px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 720px) {
+      .lk-gallery {
+        grid-template-columns: 1fr;
+        row-gap: clamp(40px, 12vw, 72px);
+      }
+      .lk:nth-child(even) { margin-top: 0; }
+    }
+
+  
+    /* ============================================================
+       FULL-SCREEN — edge-to-edge layer (appended last, wins by order)
+       ============================================================ */
+    :root { --gutter: clamp(18px, 2.6vw, 56px); }
+    .lk-gallery { max-width: none; }
+  </style>
+  <!-- Geo / LocalBusiness structured data (sitewide) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://witthelabel.be/#organization",
+        "name": "Wit",
+        "url": "https://witthelabel.be/",
+        "logo": "https://witthelabel.be/images/wit-logo.png",
+        "email": "hallo@witthelabel.be",
+        "slogan": "Minimaal van vorm, warm van hart.",
+        "areaServed": "BE",
+        "sameAs": [
+          "https://www.instagram.com/witthelabel"
+        ]
+      },
+      {
+        "@type": "ClothingStore",
+        "@id": "https://witthelabel.be/winkels.html#gent",
+        "name": "Wit — Gent",
+        "url": "https://witthelabel.be/winkels.html",
+        "image": "https://witthelabel.be/images/look-11.jpg",
+        "parentOrganization": { "@id": "https://witthelabel.be/#organization" },
+        "telephone": "+32 9 335 66 77",
+        "email": "hallo@witthelabel.be",
+        "priceRange": "€€",
+        "currenciesAccepted": "EUR",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Serpentstraat 15",
+          "postalCode": "9000",
+          "addressLocality": "Gent",
+          "addressCountry": "BE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 51.0507,
+          "longitude": 3.7250
+        },
+        "hasMap": "https://maps.google.com/?q=Serpentstraat+15,+9000+Gent",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "10:00",
+            "closes": "18:00"
+          }
+        ]
+      },
+      {
+        "@type": "ClothingStore",
+        "@id": "https://witthelabel.be/winkels.html#antwerpen",
+        "name": "Wit — Antwerpen",
+        "url": "https://witthelabel.be/winkels.html",
+        "image": "https://witthelabel.be/images/look-09.jpg",
+        "parentOrganization": { "@id": "https://witthelabel.be/#organization" },
+        "telephone": "+32 3 222 00 44",
+        "email": "hallo@witthelabel.be",
+        "priceRange": "€€",
+        "currenciesAccepted": "EUR",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Leopoldstraat 8",
+          "postalCode": "2000",
+          "addressLocality": "Antwerpen",
+          "addressCountry": "BE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 51.2120,
+          "longitude": 4.4020
+        },
+        "hasMap": "https://maps.google.com/?q=Leopoldstraat+8,+2000+Antwerpen",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "11:00",
+            "closes": "18:30"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="header" data-screen-label="Header">
+    <div class="announce"><span>Binnenlopen zonder afspraak · Gent &amp; Antwerpen · Vandaag mee naar huis</span></div>
+    <nav class="nav">
+      <div class="nav-left">
+        <div class="nav-dd">
+          <a href="shop.html">Shop</a>
+          <div class="nav-dd-menu">
+            <a href="shop.html" class="nav-dd-all">Alle stuks</a>
+            <div class="nav-dd-sep"></div>
+            <a href="shop.html?cat=jurken">Jurken</a>
+            <a href="shop.html?cat=rokken">Rokken &amp; broeken</a>
+            <a href="shop.html?cat=tops">Tops &amp; bloezen</a>
+            <a href="shop.html?cat=sets">Tweedelig</a>
+            <a href="shop.html?cat=accessoires">Accessoires</a>
+          </div>
+        </div>
+        <a href="looks.html" style="color:var(--ink);font-weight:500">Shop the look</a>
+        <a href="journal.html">Journal</a>
+        <a href="over-wit.html">Over Wit</a>
+      </div>
+      <a href="index.html" class="brand"><img src="images/wit-logo.png" alt="Wit" /></a>
+      <div class="nav-right">
+        <a href="winkels.html">Winkels</a>
+        <a href="bruiden.html">Onze bruiden</a>
+        <a href="mandje.html" class="nav-cart" data-count="0" aria-label="Tas — 0 artikelen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5.5 8h13l-0.8 11.5a1 1 0 0 1-1 0.9H7.3a1 1 0 0 1-1-0.9L5.5 8z"/>
+            <path d="M9 8.5V6.5a3 3 0 0 1 6 0v2"/>
+          </svg>
+          <span class="nav-cart-count">0</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ Head ============ -->
+  <section class="lk-head" data-screen-label="Title">
+    <span class="eyebrow lk-eyebrow">— Lente · Zomer 2026 · 12 looks</span>
+    <h1 class="lk-title">De <em>looks</em>.</h1>
+    <p class="lk-sub">Twaalf manieren om Wit te dragen — op de dag zelf, en op de duizend dagen erna. Elke look is samengesteld om opnieuw te combineren.</p>
+  </section>
+
+  <!-- ============ Gallery ============ -->
+  <section class="lk-gallery" data-screen-label="Lookbook">
+
+    <a class="lk" href="look.html?look=01" data-look="01" data-screen-label="Look 01">
+      <div class="lk-media">
+        <img src="images/look-01.jpg" alt="De Nora-knit, gelaagd gedragen" />
+        <span class="lk-index">Look 01</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">De <em>Nora</em>-knit</h3>
+        <span class="lk-price">vanaf € 180</span>
+      </div>
+      <div class="lk-pieces">3 stuks · Knit · Rok · Oorbel</div>
+    </a>
+
+    <a class="lk" href="look.html?look=02" data-look="02" data-screen-label="Look 02">
+      <div class="lk-media">
+        <img src="images/look-02.jpg" alt="Stil silhouet in crêpe" />
+        <span class="lk-index">Look 02</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">Stil silhouet</h3>
+        <span class="lk-price">vanaf € 240</span>
+      </div>
+      <div class="lk-pieces">2 stuks · Jurk · Ceintuur</div>
+    </a>
+
+    <a class="lk" href="look.html?look=03" data-look="03" data-screen-label="Look 03">
+      <div class="lk-media">
+        <img src="images/look-03.jpg" alt="Maan-jurk, lang model" />
+        <span class="lk-index">Look 03</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">De <em>Maan</em>-jurk</h3>
+        <span class="lk-price">vanaf € 320</span>
+      </div>
+      <div class="lk-pieces">2 stuks · Jurk · Sjaal</div>
+    </a>
+
+    <a class="lk" href="look.html?look=04" data-look="04" data-screen-label="Look 04">
+      <div class="lk-media">
+        <img src="images/look-04.jpg" alt="Lou-vest open gedragen over rok" />
+        <span class="hand-tag" style="right: 14px; top: -18px; transform: rotate(-9deg);">warm</span>
+        <span class="lk-index">Look 04</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">Het vest, <em>open</em></h3>
+        <span class="lk-price">vanaf € 70</span>
+      </div>
+      <div class="lk-pieces">3 stuks · Vest · Rok · Oorbel</div>
+    </a>
+
+    <a class="lk" href="look.html?look=05" data-look="05" data-screen-label="Look 05">
+      <div class="lk-media">
+        <img src="images/look-05.jpg" alt="Laagjes in ivoor" />
+        <span class="lk-index">Look 05</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">Laagjes in ivoor</h3>
+        <span class="lk-price">vanaf € 90</span>
+      </div>
+      <div class="lk-pieces">4 stuks · Top · Rok · Vest · Tas</div>
+    </a>
+
+    <a class="lk" href="look.html?look=06" data-look="06" data-screen-label="Look 06">
+      <div class="lk-media">
+        <img src="images/look-06.jpg" alt="Juni-set, tweedelig" />
+        <span class="lk-index">Look 06</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">De <em>Juni</em>-set</h3>
+        <span class="lk-price">vanaf € 260</span>
+      </div>
+      <div class="lk-pieces">2 stuks · Top · Broek</div>
+    </a>
+
+    <a class="lk" href="look.html?look=07" data-look="07" data-screen-label="Look 07">
+      <div class="lk-media">
+        <img src="images/look-07.jpg" alt="De rechte rok" />
+        <span class="lk-index">Look 07</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">De rechte rok</h3>
+        <span class="lk-price">vanaf € 220</span>
+      </div>
+      <div class="lk-pieces">2 stuks · Rok · Blouse</div>
+    </a>
+
+    <a class="lk" href="look.html?look=08" data-look="08" data-screen-label="Look 08">
+      <div class="lk-media">
+        <img src="images/look-08.jpg" alt="Zacht geschouderd" />
+        <span class="hand-tag" style="left: 14px; top: -18px; transform: rotate(-11deg);">zacht licht</span>
+        <span class="lk-index">Look 08</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">Zacht geschouderd</h3>
+        <span class="lk-price">vanaf € 150</span>
+      </div>
+      <div class="lk-pieces">3 stuks · Top · Rok · Oorbel</div>
+    </a>
+
+    <a class="lk" href="look.html?look=09" data-look="09" data-screen-label="Look 09">
+      <div class="lk-media">
+        <img src="images/look-09.jpg" alt="Crêpe en licht" />
+        <span class="lk-index">Look 09</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">Crêpe &amp; licht</h3>
+        <span class="lk-price">vanaf € 280</span>
+      </div>
+      <div class="lk-pieces">2 stuks · Jurk · Ceintuur</div>
+    </a>
+
+    <a class="lk" href="look.html?look=10" data-look="10" data-screen-label="Look 10">
+      <div class="lk-media">
+        <img src="images/look-10.jpg" alt="Avond, getemperd" />
+        <span class="lk-index">Look 10</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">Avond, getemperd</h3>
+        <span class="lk-price">vanaf € 340</span>
+      </div>
+      <div class="lk-pieces">3 stuks · Jurk · Vest · Tas</div>
+    </a>
+
+    <a class="lk" href="look.html?look=11" data-look="11" data-screen-label="Look 11">
+      <div class="lk-media">
+        <img src="images/look-11.jpg" alt="In de boetiek" />
+        <span class="lk-index">Look 11</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">In de boetiek</h3>
+        <span class="lk-price">vanaf € 120</span>
+      </div>
+      <div class="lk-pieces">3 stuks · Blouse · Rok · Sjaal</div>
+    </a>
+
+    <a class="lk" href="look.html?look=12" data-look="12" data-screen-label="Look 12">
+      <div class="lk-media">
+        <img src="images/look-12.jpg" alt="De Lotte-jurk" />
+        <span class="lk-index">Look 12</span>
+        <span class="lk-shop">Shop de look →</span>
+      </div>
+      <div class="lk-cap">
+        <h3 class="lk-name">De <em>Lotte</em>-jurk</h3>
+        <span class="lk-price">vanaf € 300</span>
+      </div>
+      <div class="lk-pieces">2 stuks · Jurk · Oorbel</div>
+    </a>
+
+  </section>
+
+  <!-- ============ Closing ============ -->
+  <section class="lk-foot" data-screen-label="Closing">
+    <p>Niet zeker waar te beginnen? Loop binnen — we stellen je look samen.</p>
+    <a href="shop.html" class="link-u">Shop alle stuks →</a>
+  </section>
+
+  <footer class="footer" data-screen-label="Footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="images/wit-logo.png" alt="Wit" /></div>
+        <p class="footer-tag">Minimaal van vorm, warm van hart.</p>
+        <p class="footer-addr">Serpentstraat 15, 9000 Gent<br/>Leopoldstraat 8, 2000 Antwerpen<br/>hallo@witthelabel.be</p>
+      </div>
+      <div class="footer-col"><h4>Shop</h4><ul>
+        <li><a href="shop.html">Alle stuks</a></li><li><a href="shop.html">Ceremonie</a></li>
+        <li><a href="shop.html">Feest</a></li><li><a href="shop.html">Separates</a></li>
+        <li><a href="shop.html">Accessoires</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Atelier</h4><ul>
+        <li><a href="winkels.html">Onze winkels</a></li><li><a href="#">Op maat</a></li>
+        <li><a href="maatgids.html">Maat &amp; fit</a></li><li><a href="#">Onderhoud</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Het huis</h4><ul>
+        <li><a href="over-wit.html">Ons verhaal</a></li><li><a href="journal.html">Journal</a></li>
+        <li><a href="#">Duurzaamheid</a></li><li><a href="winkels.html">Verkooppunten</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Help</h4><ul>
+        <li><a href="verzending.html">Verzending</a></li><li><a href="retour.html">Retour</a></li>
+        <li><a href="winkels.html#contact">Contact</a></li><li><a href="faq.html">FAQ</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Wit · Gent &amp; Antwerpen, BE</span>
+      <span>Privacy · Voorwaarden · Cookies</span>
+    </div>
+  </footer>
+
+  <script src="site.js"></script>
+</body>
+</html>

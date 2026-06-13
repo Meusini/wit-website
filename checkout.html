@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="nl" data-navfont="serif">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Afrekenen — Wit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Kalam:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .co-top {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: clamp(28px, 3vw, 44px) var(--gutter) 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .co-top .co-logo img { height: 30px; }
+    .co-top .co-secure {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+    }
+
+    .co-wrap {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: clamp(28px, 4vw, 56px) var(--gutter) clamp(80px, 10vw, 140px);
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: clamp(40px, 5vw, 88px);
+      align-items: start;
+    }
+    .co-title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(34px, 4.5vw, 60px);
+      letter-spacing: -0.02em;
+      margin: 0 0 8px;
+    }
+    .co-title em { font-family: var(--font-accent); font-style: italic; }
+    .co-back {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--ink-50);
+      display: inline-block;
+      margin-bottom: clamp(28px, 4vw, 44px);
+    }
+    .co-back:hover { color: var(--ink); }
+
+    /* Steps */
+    .co-step { border-top: 1px solid var(--ink-12); }
+    .co-step:last-of-type { border-bottom: 1px solid var(--ink-12); }
+    .co-step-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 26px 0;
+      cursor: default;
+    }
+    .co-step.done .co-step-head { cursor: pointer; }
+    .co-num {
+      width: 28px; height: 28px;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: 12px;
+      flex-shrink: 0;
+      transition: background .2s, color .2s;
+    }
+    .co-step.done .co-num, .co-step.open .co-num { background: var(--ink); color: var(--bg); }
+    .co-step-title {
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      font-size: clamp(20px, 1.8vw, 26px);
+      flex: 1;
+    }
+    .co-step-edit {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--ink-50);
+      display: none;
+    }
+    .co-step.done .co-step-edit { display: inline; }
+    .co-step-summary {
+      font-size: 13px;
+      color: var(--ink-70);
+      line-height: 1.6;
+      padding: 0 0 26px 44px;
+      display: none;
+    }
+    .co-step.done .co-step-summary { display: block; }
+    .co-step-body {
+      padding: 0 0 32px 44px;
+      display: none;
+    }
+    .co-step.open .co-step-body { display: block; }
+
+    /* Form */
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.col-2 { grid-column: 1 / -1; }
+    .field label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+    }
+    .field input, .field select {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--ink);
+      background: var(--surface);
+      border: 0.5px solid var(--ink-20, rgba(26,26,24,.2));
+      padding: 13px 14px;
+      border-radius: 0;
+      outline: none;
+      transition: border-color .15s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .field input:focus, .field select:focus { border-color: var(--ink); }
+    .field.invalid input, .field.invalid select { border-color: #b4453a; }
+    .field .err {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.03em;
+      color: #b4453a;
+      display: none;
+    }
+    .field.invalid .err { display: block; }
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%231a1a18' fill='none' stroke-width='1.2'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .co-next { margin-top: 26px; }
+
+    /* Choice rows (levering / betaling) */
+    .choice {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      border: 0.5px solid var(--ink-20, rgba(26,26,24,.2));
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .choice:hover { border-color: var(--ink); }
+    .choice[aria-checked="true"] { border-color: var(--ink); background: var(--cream); }
+    .choice-radio {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1px solid var(--ink); flex-shrink: 0;
+      position: relative;
+    }
+    .choice[aria-checked="true"] .choice-radio::after {
+      content: ""; position: absolute; inset: 3px;
+      background: var(--ink); border-radius: 50%;
+    }
+    .choice-main { flex: 1; }
+    .choice-name { font-family: var(--font-display); font-weight: 500; font-size: 17px; }
+    .choice-desc { font-size: 12px; color: var(--ink-70); margin-top: 2px; }
+    .choice-price {
+      font-family: var(--font-mono); font-size: 12px;
+      letter-spacing: 0.04em; color: var(--ink);
+    }
+    .choice-price.free { color: #4a7c59; }
+    .pay-fields {
+      margin: 4px 0 8px;
+      padding: 0 0 4px 38px;
+      display: none;
+    }
+    .pay-fields.show { display: block; }
+
+    /* Summary */
+    .co-summary {
+      position: sticky;
+      top: 24px;
+      background: var(--cream);
+      padding: clamp(26px, 3vw, 36px);
+    }
+    .co-summary h2 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+      font-weight: 400;
+      margin: 0 0 22px;
+    }
+    .co-item {
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      gap: 14px;
+      padding: 12px 0;
+      align-items: center;
+    }
+    .co-item-thumb { width: 56px; height: 72px; background: var(--surface); overflow: hidden; position: relative; }
+    .co-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .co-item-qty {
+      position: absolute; top: -7px; right: -7px;
+      min-width: 18px; height: 18px; padding: 0 4px;
+      background: var(--ink); color: var(--bg);
+      border-radius: 999px;
+      font-family: var(--font-mono); font-size: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .co-item-name { font-family: var(--font-display); font-weight: 500; font-size: 16px; line-height: 1.1; }
+    .co-item-variant { font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--ls-wide); text-transform: uppercase; color: var(--label); margin-top: 3px; }
+    .co-item-price { font-size: 13px; white-space: nowrap; }
+    .co-sums { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--ink-12); }
+    .co-sum-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--ink-70); padding: 7px 0; }
+    .co-sum-row .v { color: var(--ink); }
+    .co-sum-row.free .v { color: #4a7c59; }
+    .co-sum-total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; padding-top: 16px; border-top: 1px solid var(--ink-12); }
+    .co-sum-total .l { font-family: var(--font-display); font-size: 19px; }
+    .co-sum-total .v { font-family: var(--font-display); font-size: 26px; }
+
+    @media (max-width: 860px) {
+      .co-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .co-summary { position: static; order: -1; }
+      .field-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="co-top">
+    <a href="index.html" class="co-logo"><img src="images/wit-logo.png" alt="Wit" /></a>
+    <span class="co-secure">🔒 Beveiligd afrekenen</span>
+  </div>
+
+  <main class="co-wrap" data-screen-label="Afrekenen">
+    <div class="co-main">
+      <a href="mandje.html" class="co-back">← Terug naar mandje</a>
+      <h1 class="co-title">Afrekenen<em>.</em></h1>
+
+      <!-- Step 1 — Gegevens -->
+      <section class="co-step open" data-step="1">
+        <div class="co-step-head">
+          <span class="co-num">1</span>
+          <span class="co-step-title">Gegevens</span>
+          <span class="co-step-edit">Wijzig</span>
+        </div>
+        <div class="co-step-summary" id="sum-1"></div>
+        <div class="co-step-body">
+          <div class="field-grid">
+            <div class="field col-2" data-required data-type="email">
+              <label for="f-email">E-mailadres</label>
+              <input id="f-email" type="email" placeholder="naam@voorbeeld.be" autocomplete="email" />
+              <span class="err">Vul een geldig e-mailadres in</span>
+            </div>
+            <div class="field" data-required>
+              <label for="f-fname">Voornaam</label>
+              <input id="f-fname" type="text" autocomplete="given-name" />
+              <span class="err">Verplicht</span>
+            </div>
+            <div class="field" data-required>
+              <label for="f-lname">Achternaam</label>
+              <input id="f-lname" type="text" autocomplete="family-name" />
+              <span class="err">Verplicht</span>
+            </div>
+            <div class="field col-2" data-required>
+              <label for="f-street">Straat en huisnummer</label>
+              <input id="f-street" type="text" autocomplete="street-address" />
+              <span class="err">Verplicht</span>
+            </div>
+            <div class="field" data-required>
+              <label for="f-zip">Postcode</label>
+              <input id="f-zip" type="text" autocomplete="postal-code" />
+              <span class="err">Verplicht</span>
+            </div>
+            <div class="field" data-required>
+              <label for="f-city">Gemeente</label>
+              <input id="f-city" type="text" autocomplete="address-level2" />
+              <span class="err">Verplicht</span>
+            </div>
+            <div class="field">
+              <label for="f-country">Land</label>
+              <select id="f-country">
+                <option value="België">België</option>
+                <option value="Nederland">Nederland</option>
+                <option value="Frankrijk">Frankrijk</option>
+                <option value="Luxemburg">Luxemburg</option>
+              </select>
+            </div>
+            <div class="field" data-required data-type="phone">
+              <label for="f-phone">Telefoon</label>
+              <input id="f-phone" type="tel" autocomplete="tel" placeholder="+32 …" />
+              <span class="err">Vul een geldig nummer in</span>
+            </div>
+          </div>
+          <button class="btn co-next" data-next="1">Ga verder naar levering →</button>
+        </div>
+      </section>
+
+      <!-- Step 2 — Levering -->
+      <section class="co-step" data-step="2">
+        <div class="co-step-head">
+          <span class="co-num">2</span>
+          <span class="co-step-title">Levering</span>
+          <span class="co-step-edit">Wijzig</span>
+        </div>
+        <div class="co-step-summary" id="sum-2"></div>
+        <div class="co-step-body">
+          <div class="choice" role="radio" aria-checked="true" data-ship="home" data-cost="auto">
+            <span class="choice-radio"></span>
+            <span class="choice-main">
+              <span class="choice-name">Thuislevering</span>
+              <span class="choice-desc">2–4 werkdagen · met track &amp; trace</span>
+            </span>
+            <span class="choice-price" data-home-price></span>
+          </div>
+          <div class="choice" role="radio" aria-checked="false" data-ship="gent" data-cost="0">
+            <span class="choice-radio"></span>
+            <span class="choice-main">
+              <span class="choice-name">Afhalen — Gent</span>
+              <span class="choice-desc">Serpentstraat 15 · klaar binnen 2 uur</span>
+            </span>
+            <span class="choice-price free">Gratis</span>
+          </div>
+          <div class="choice" role="radio" aria-checked="false" data-ship="antwerpen" data-cost="0">
+            <span class="choice-radio"></span>
+            <span class="choice-main">
+              <span class="choice-name">Afhalen — Antwerpen</span>
+              <span class="choice-desc">Leopoldstraat 8 · klaar binnen 2 uur</span>
+            </span>
+            <span class="choice-price free">Gratis</span>
+          </div>
+          <button class="btn co-next" data-next="2">Ga verder naar betaling →</button>
+        </div>
+      </section>
+
+      <!-- Step 3 — Betaling -->
+      <section class="co-step" data-step="3">
+        <div class="co-step-head">
+          <span class="co-num">3</span>
+          <span class="co-step-title">Betaling</span>
+          <span class="co-step-edit">Wijzig</span>
+        </div>
+        <div class="co-step-summary" id="sum-3"></div>
+        <div class="co-step-body">
+          <div class="choice" role="radio" aria-checked="true" data-pay="bancontact">
+            <span class="choice-radio"></span>
+            <span class="choice-main"><span class="choice-name">Bancontact</span></span>
+          </div>
+          <div class="choice" role="radio" aria-checked="false" data-pay="card">
+            <span class="choice-radio"></span>
+            <span class="choice-main"><span class="choice-name">Kaart</span><span class="choice-desc">Visa · Mastercard · Amex</span></span>
+          </div>
+          <div class="pay-fields" data-for="card">
+            <div class="field-grid">
+              <div class="field col-2"><label for="c-num">Kaartnummer</label><input id="c-num" type="text" inputmode="numeric" placeholder="0000 0000 0000 0000" /></div>
+              <div class="field"><label for="c-exp">Vervaldatum</label><input id="c-exp" type="text" placeholder="MM / JJ" /></div>
+              <div class="field"><label for="c-cvc">CVC</label><input id="c-cvc" type="text" inputmode="numeric" placeholder="123" /></div>
+            </div>
+          </div>
+          <div class="choice" role="radio" aria-checked="false" data-pay="ideal">
+            <span class="choice-radio"></span>
+            <span class="choice-main"><span class="choice-name">iDEAL</span></span>
+          </div>
+          <div class="choice" role="radio" aria-checked="false" data-pay="transfer">
+            <span class="choice-radio"></span>
+            <span class="choice-main"><span class="choice-name">Overschrijving</span><span class="choice-desc">We sturen de betaalgegevens per e-mail</span></span>
+          </div>
+          <button class="btn co-next" data-place>Bestelling plaatsen →</button>
+          <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.03em;color:var(--label);margin-top:14px;text-transform:uppercase">Demo — er wordt geen echte betaling gedaan</p>
+        </div>
+      </section>
+    </div>
+
+    <aside class="co-summary">
+      <h2>Je bestelling</h2>
+      <div id="co-items"></div>
+      <div class="co-sums">
+        <div class="co-sum-row"><span>Subtotaal</span><span class="v" id="co-sub"></span></div>
+        <div class="co-sum-row" id="co-ship-row"><span>Levering</span><span class="v" id="co-ship"></span></div>
+        <div class="co-sum-total"><span class="l">Totaal</span><span class="v" id="co-total"></span></div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="site.js"></script>
+  <script>
+    (function () {
+      var FREE_FROM = 200, SHIP = 6.95;
+      function euro(n) { return '€ ' + n.toLocaleString('nl-BE', { minimumFractionDigits: (n % 1 ? 2 : 0), maximumFractionDigits: 2 }); }
+
+      var items = window.WitCart.get();
+      // Geen mandje? Terug naar de winkel.
+      if (!items.length) { location.replace('mandje.html'); return; }
+
+      var state = { ship: 'home', pay: 'bancontact' };
+
+      /* ---------- Order summary ---------- */
+      function shipCost() { return state.ship === 'home' ? (window.WitCart.subtotal() >= FREE_FROM ? 0 : SHIP) : 0; }
+      function renderSummary() {
+        var sub = window.WitCart.subtotal();
+        var ship = shipCost();
+        document.getElementById('co-items').innerHTML = items.map(function (it) {
+          return '<div class="co-item">' +
+            '<div class="co-item-thumb"><img src="' + it.img + '" alt="' + it.name + '" style="object-position:' + it.imgPos + '" /><span class="co-item-qty">' + it.qty + '</span></div>' +
+            '<div><div class="co-item-name">' + it.name + '</div><div class="co-item-variant">' + (it.variant ? 'Maat ' + it.variant : 'Eén maat') + '</div></div>' +
+            '<div class="co-item-price">' + euro(it.price * it.qty) + '</div>' +
+          '</div>';
+        }).join('');
+        document.getElementById('co-sub').textContent = euro(sub);
+        var shipRow = document.getElementById('co-ship-row');
+        document.getElementById('co-ship').textContent = ship === 0 ? 'Gratis' : euro(ship);
+        shipRow.classList.toggle('free', ship === 0);
+        document.getElementById('co-total').textContent = euro(sub + ship);
+        var hp = document.querySelector('[data-home-price]');
+        if (hp) {
+          var free = window.WitCart.subtotal() >= FREE_FROM;
+          hp.textContent = free ? 'Gratis' : euro(SHIP);
+          hp.classList.toggle('free', free);
+        }
+      }
+
+      /* ---------- Steps ---------- */
+      var steps = Array.prototype.slice.call(document.querySelectorAll('.co-step'));
+      function openStep(n) {
+        steps.forEach(function (s) {
+          var sn = +s.getAttribute('data-step');
+          s.classList.toggle('open', sn === n);
+        });
+      }
+      function markDone(n, summaryHtml) {
+        var s = steps.filter(function (x) { return +x.getAttribute('data-step') === n; })[0];
+        s.classList.add('done');
+        document.getElementById('sum-' + n).innerHTML = summaryHtml;
+      }
+      // edit a completed step
+      steps.forEach(function (s) {
+        s.querySelector('.co-step-head').addEventListener('click', function () {
+          if (s.classList.contains('done')) openStep(+s.getAttribute('data-step'));
+        });
+      });
+
+      /* ---------- Validation (step 1) ---------- */
+      function validateStep1() {
+        var ok = true;
+        document.querySelectorAll('.co-step[data-step="1"] .field[data-required]').forEach(function (f) {
+          var input = f.querySelector('input, select');
+          var v = (input.value || '').trim();
+          var bad = !v;
+          if (!bad && f.getAttribute('data-type') === 'email') bad = !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
+          if (!bad && f.getAttribute('data-type') === 'phone') bad = v.replace(/[^0-9]/g, '').length < 8;
+          f.classList.toggle('invalid', bad);
+          if (bad) ok = false;
+        });
+        return ok;
+      }
+      // live-clear invalid
+      document.querySelectorAll('.co-step[data-step="1"] input, .co-step[data-step="1"] select').forEach(function (el) {
+        el.addEventListener('input', function () { el.closest('.field').classList.remove('invalid'); });
+      });
+
+      /* ---------- Choice rows ---------- */
+      function wireChoices(attr, key, after) {
+        document.querySelectorAll('[data-' + attr + ']').forEach(function (c) {
+          c.addEventListener('click', function () {
+            document.querySelectorAll('[data-' + attr + ']').forEach(function (o) { o.setAttribute('aria-checked', 'false'); });
+            c.setAttribute('aria-checked', 'true');
+            state[key] = c.getAttribute('data-' + attr);
+            if (after) after();
+          });
+        });
+      }
+      wireChoices('ship', 'ship', renderSummary);
+      wireChoices('pay', 'pay', function () {
+        var pf = document.querySelector('.pay-fields[data-for="card"]');
+        pf.classList.toggle('show', state.pay === 'card');
+      });
+
+      /* ---------- Next buttons ---------- */
+      document.querySelector('[data-next="1"]').addEventListener('click', function () {
+        if (!validateStep1()) {
+          var first = document.querySelector('.co-step[data-step="1"] .field.invalid input, .co-step[data-step="1"] .field.invalid select');
+          if (first) first.focus();
+          return;
+        }
+        var name = document.getElementById('f-fname').value + ' ' + document.getElementById('f-lname').value;
+        var addr = document.getElementById('f-street').value + ', ' + document.getElementById('f-zip').value + ' ' + document.getElementById('f-city').value;
+        markDone(1, '<strong>' + name.trim() + '</strong> · ' + document.getElementById('f-email').value + '<br>' + addr);
+        openStep(2);
+      });
+      document.querySelector('[data-next="2"]').addEventListener('click', function () {
+        var labels = { home: 'Thuislevering', gent: 'Afhalen — Gent', antwerpen: 'Afhalen — Antwerpen' };
+        var cost = shipCost();
+        markDone(2, labels[state.ship] + ' · ' + (cost === 0 ? 'Gratis' : euro(cost)));
+        openStep(3);
+      });
+
+      /* ---------- Place order ---------- */
+      document.querySelector('[data-place]').addEventListener('click', function () {
+        var btn = this;
+        if (state.pay === 'card') {
+          var num = document.getElementById('c-num').value.replace(/\s/g, '');
+          if (num.length < 12) { document.getElementById('c-num').focus(); document.getElementById('c-num').closest('.field').classList.add('invalid'); return; }
+        }
+        btn.textContent = 'Bezig met verwerken…';
+        btn.disabled = true;
+        var order = {
+          ref: 'WIT-' + Math.floor(100000 + Math.random() * 899999),
+          email: document.getElementById('f-email').value,
+          name: (document.getElementById('f-fname').value + ' ' + document.getElementById('f-lname').value).trim(),
+          ship: state.ship,
+          pay: state.pay,
+          items: items,
+          subtotal: window.WitCart.subtotal(),
+          shipping: shipCost(),
+          total: window.WitCart.subtotal() + shipCost()
+        };
+        sessionStorage.setItem('wit-order', JSON.stringify(order));
+        setTimeout(function () {
+          window.WitCart.clear();
+          location.href = 'bedankt.html';
+        }, 900);
+      });
+
+      renderSummary();
+    })();
+  </script>
+</body>
+</html>

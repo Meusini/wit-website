@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wit — mobiel</title>
+<style>
+  :root { --bezel: #0d0d0f; --s: 0.74; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: #e9e5df;
+    font-family: -apple-system, "SF Pro Text", system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .pv-head {
+    flex: 0 0 auto;
+    padding: 22px 32px 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .pv-head h1 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 500;
+    font-size: 26px;
+    margin: 0;
+    color: #1a1a18;
+  }
+  .pv-head .hint {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8a8378;
+  }
+  .rail {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    gap: calc(56px * var(--s));
+    padding: 16px 40px 40px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+  .stage {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    scroll-snap-align: center;
+  }
+  .caption {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8a8378;
+    white-space: nowrap;
+  }
+  .frame-wrap {
+    width: calc(393px * var(--s));
+    height: calc(852px * var(--s));
+  }
+  .phone {
+    position: relative;
+    width: 393px;
+    height: 852px;
+    transform: scale(var(--s));
+    transform-origin: top left;
+    background: var(--bezel);
+    border-radius: 56px;
+    padding: 12px;
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.4) inset,
+      0 40px 80px -20px rgba(0,0,0,0.45),
+      0 8px 24px -8px rgba(0,0,0,0.35);
+  }
+  .phone::after {
+    content: "";
+    position: absolute;
+    left: -3px;
+    top: 168px;
+    width: 3px;
+    height: 64px;
+    background: #2a2a2e;
+    border-radius: 2px 0 0 2px;
+    box-shadow: 0 96px 0 #2a2a2e, 0 184px 0 0 #2a2a2e;
+  }
+  .screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 44px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .status-pad { flex: 0 0 56px; background: rgb(250, 248, 244); }
+  .screen iframe { width: 100%; flex: 1 1 auto; border: 0; display: block; }
+  .island {
+    position: absolute;
+    top: 12px; left: 50%;
+    transform: translateX(-50%);
+    width: 124px; height: 36px;
+    background: #000; border-radius: 20px;
+    z-index: 10; pointer-events: none;
+  }
+</style>
+</head>
+<body>
+  <div class="pv-head">
+    <h1>Wit — mobiel</h1>
+    <span class="hint">Scroll horizontaal · iPhone 393 px</span>
+  </div>
+  <div class="rail" id="rail"></div>
+
+<script>
+  const PAGES = [
+    ['Home', 'index.html'],
+    ['Shop', 'shop.html'],
+    ['Productpagina', 'product.html?id=nora-knit'],
+    ['Shop the look', 'look.html?look=04'],
+    ['Jouw mandje', 'mandje.html'],
+    ['Afrekenen', 'checkout.html'],
+    ['FAQ', 'faq.html']
+  ];
+  const rail = document.getElementById('rail');
+  rail.innerHTML = PAGES.map(([cap, src]) =>
+    '<div class="stage">' +
+      '<div class="caption">' + cap + '</div>' +
+      '<div class="frame-wrap"><div class="phone"><div class="screen">' +
+        '<div class="island"></div>' +
+        '<div class="status-pad"></div>' +
+        '<iframe src="' + src + '" title="Wit ' + cap + ' mobiel"></iframe>' +
+      '</div></div></div>' +
+    '</div>'
+  ).join('');
+
+  function fit() {
+    const availH = window.innerHeight - 150;
+    const s = Math.max(0.45, Math.min(0.82, availH / 852));
+    document.documentElement.style.setProperty('--s', s.toFixed(3));
+  }
+  fit();
+  window.addEventListener('resize', fit);
+</script>
+</body>
+</html>

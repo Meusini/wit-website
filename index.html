@@ -1,0 +1,1305 @@
+<!doctype html>
+<html lang="nl" data-hero="full" data-navfont="serif">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wit — prêt-à-porter bruidsmode voor de moderne bruid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Kalam:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Ruimere sectie-ritmiek op de homepage */
+    :root { --section-y: clamp(96px, 11vw, 188px); }
+
+    /* ============ Hero ============ */
+    .hero {
+      position: relative;
+      width: 100%;
+    }
+
+    /* Layout: full-bleed (default) */
+    html[data-hero="full"] .hero {
+      height: 72vh;
+      min-height: 480px;
+      max-height: 760px;
+      background: var(--cream);
+      overflow: hidden;
+    }
+    html[data-hero="full"] .hero-img-main {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 25%;
+    }
+    html[data-hero="full"] .hero-img-side,
+    html[data-hero="full"] .hero-second { display: none; }
+    html[data-hero="full"] .hero-pane { position: absolute; inset: 0; }
+    html[data-hero="full"] .hero-text {
+      position: absolute;
+      left: var(--gutter);
+      bottom: clamp(48px, 7vw, 96px);
+      max-width: 560px;
+      color: var(--ink);
+      mix-blend-mode: multiply;
+    }
+    html[data-hero="full"] .hero-meta {
+      position: absolute;
+      right: var(--gutter);
+      bottom: clamp(48px, 7vw, 96px);
+      color: var(--ink);
+      mix-blend-mode: multiply;
+      text-align: right;
+    }
+
+    /* Layout: split 50/50 */
+    html[data-hero="split"] .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 122px);
+      background: var(--bg);
+    }
+    html[data-hero="split"] .hero-img-main {
+      align-self: center;
+      width: 100%;
+      height: calc(100% - clamp(56px, 8vw, 104px));
+      object-fit: cover; object-position: center 12%;
+    }
+    html[data-hero="split"] .hero-img-side,
+    html[data-hero="split"] .hero-second { display: none; }
+    html[data-hero="split"] .hero-pane {
+      display: flex; flex-direction: column;
+      justify-content: center;
+      padding: clamp(56px, 8vw, 104px) clamp(40px, 6vw, 96px);
+      background: var(--bg);
+    }
+    html[data-hero="split"] .hero-text {
+      max-width: 480px;
+    }
+    html[data-hero="split"] .hero-meta {
+      margin-top: 48px;
+      display: flex; gap: 24px; align-items: center;
+    }
+
+    /* Layout: diptych */
+    html[data-hero="diptych"] .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--line);
+      min-height: 720px;
+      height: calc(100vh - 122px);
+    }
+    html[data-hero="diptych"] .hero-pane,
+    html[data-hero="diptych"] .hero-meta { display: none; }
+    html[data-hero="diptych"] .hero-img-main,
+    html[data-hero="diptych"] .hero-img-side {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    html[data-hero="diptych"] .hero-img-main { object-position: center 25%; }
+    html[data-hero="diptych"] .hero-text {
+      position: absolute;
+      left: var(--gutter); right: var(--gutter);
+      bottom: clamp(40px, 5vw, 64px);
+      display: flex; justify-content: space-between; align-items: end;
+      gap: 40px;
+      color: #fff;
+      mix-blend-mode: difference;
+    }
+
+    .hero-pane { position: relative; }
+
+    .hero-eyebrow { margin-bottom: 24px; }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 7vw, 104px);
+      line-height: 0.98;
+      letter-spacing: 0.005em;
+      font-weight: var(--display-weight);
+      margin: 0;
+    }
+    .hero-title em {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-weight: var(--display-weight);
+    }
+    .hero-cta-row {
+      display: flex; align-items: center; gap: 24px;
+      margin-top: 32px;
+    }
+    .hero-meta .lead { max-width: 280px; }
+
+    .hero-counter {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--ink-70);
+    }
+    .hero-counter strong { color: var(--ink); font-weight: 700; }
+
+    /* ============ Intro statement ============ */
+    .intro {
+      padding: clamp(120px, 14vw, 220px) var(--gutter) clamp(72px, 8vw, 120px);
+      text-align: center;
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .intro-eyebrow { margin-bottom: 40px; }
+    .intro-title {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3.4vw, 52px);
+      line-height: 1.3;
+      letter-spacing: 0.005em;
+      font-weight: var(--display-weight);
+      margin: 0 0 40px;
+      text-wrap: balance;
+    }
+    .intro-title em {
+      font-family: var(--font-accent);
+      font-style: italic;
+    }
+    .intro-body {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--ink-70);
+    }
+
+    /* ============ De editie ============ */
+    .edit-head {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: end;
+      margin-bottom: clamp(40px, 5vw, 80px);
+    }
+    .edit-head .display-l { text-align: center; }
+    .edit-head .link-u { justify-self: end; }
+    .edit-head .eyebrow { justify-self: start; }
+
+    .edit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(20px, 2vw, 32px) clamp(16px, 1.5vw, 24px);
+    }
+
+    /* ============ Categorieën ============ */
+    .categories { padding-top: clamp(24px, 3vw, 48px); padding-bottom: clamp(72px, 8vw, 128px); }
+    .cat-head { margin-bottom: clamp(28px, 3vw, 48px); }
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(22px, 2.2vw, 40px);
+    }
+    .cat-tile { display: block; position: relative; }
+    .cat-img {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: var(--cream);
+    }
+    .cat-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(.23,1,.32,1);
+    }
+    .cat-tile:hover .cat-img img { transform: scale(1.04); }
+    .cat-label {
+      margin-top: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: baseline;
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(19px, 1.5vw, 25px);
+      letter-spacing: 0.01em;
+      transition: border-color .25s;
+    }
+    .cat-tile:hover .cat-label { border-bottom-color: var(--ink); }
+    .cat-label .arr {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--ink-50);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity .25s, transform .25s;
+    }
+    .cat-tile:hover .cat-label .arr { opacity: 1; transform: translateX(0); }
+    @media (max-width: 640px) {
+      .cat-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ============ Editorial campagne ============ */
+    .editorial {
+      position: relative;
+      width: min(calc(1400px - 2 * var(--gutter)), calc(100% - 2 * var(--gutter)));
+      margin: 0 auto;
+      min-height: 0;
+      height: clamp(560px, 58vw, 760px);
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      grid-template-rows: 100%;
+      gap: 0;
+      align-items: stretch;
+      background: var(--cream);
+    }
+    .editorial-pane {
+      padding: clamp(36px, 4vw, 60px) clamp(44px, 5vw, 84px);
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+    }
+    .editorial-img {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      object-fit: cover;
+      object-position: center 32%;
+    }
+    .editorial-eyebrow { margin-bottom: 24px; }
+    .editorial-title {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3.2vw, 46px);
+      line-height: 1.06;
+      letter-spacing: 0.005em;
+      font-weight: var(--display-weight);
+      margin: 0 0 20px;
+      max-width: 440px;
+    }
+    .editorial-title em {
+      font-family: var(--font-accent);
+      font-style: italic;
+    }
+    .editorial-body {
+      max-width: 400px;
+      color: var(--ink-70);
+      line-height: 1.7;
+      margin: 0 0 32px;
+    }
+    .editorial-foot {
+      display: flex; justify-content: space-between; align-items: end;
+      gap: 24px;
+    }
+    .editorial-credits {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--label);
+      line-height: 2;
+    }
+
+    /* ============ Shop de look ============ */
+    .hand-tag {
+      position: absolute;
+      font-family: var(--font-hand);
+      color: var(--ink);
+      font-size: clamp(24px, 2.2vw, 40px);
+      line-height: 1;
+      z-index: 3;
+      pointer-events: none;
+      white-space: nowrap;
+      transform: rotate(-4deg);
+      transform-origin: center;
+    }
+    .hand-tag--light { color: #fff; text-shadow: 0 1px 16px rgba(0,0,0,.5); }
+
+    .shoplook {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 5vw, 96px);
+      align-items: center;
+    }
+    .shoplook-img-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      background: var(--cream);
+    }
+    .shoplook-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .shoplook-dot {
+      position: absolute;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.85);
+      border: 1px solid rgba(0,0,0,.12);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink);
+      font-size: 15px; font-weight: 300;
+      cursor: pointer;
+      transition: transform .2s;
+    }
+    .shoplook-dot:hover { transform: scale(1.1); }
+    .shoplook-dot::after {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.6);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: .8; }
+      50% { transform: scale(1.4); opacity: 0; }
+    }
+    .shoplook-dot.added {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+    .shoplook-dot.added::after { display: none; }
+    .shoplook-dot-glyph { line-height: 1; }
+    .shoplook-dot-label {
+      position: absolute;
+      left: 50%; bottom: calc(100% + 10px);
+      transform: translateX(-50%) translateY(4px);
+      background: var(--ink); color: var(--bg);
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: var(--ls-wide); text-transform: uppercase;
+      white-space: nowrap; padding: 6px 10px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s, transform .2s;
+      z-index: 4;
+    }
+    .shoplook-dot:hover .shoplook-dot-label,
+    .shoplook-dot.added .shoplook-dot-label {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
+
+    .shoplook-text { padding-right: clamp(0px, 4vw, 60px); }
+    .shoplook-eyebrow { margin-bottom: 24px; }
+    .shoplook-title {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 4.2vw, 58px);
+      line-height: 1.04;
+      letter-spacing: 0.005em;
+      font-weight: var(--display-weight);
+      margin: 0 0 24px;
+    }
+    .shoplook-title em { font-family: var(--font-accent); font-style: italic; }
+    .shoplook-items {
+      display: flex; flex-direction: column;
+      margin-top: 48px;
+      border-top: 1px solid var(--line);
+    }
+    .shoplook-row {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--line);
+      transition: padding-left .2s;
+    }
+    .shoplook-row:hover { padding-left: 8px; }
+    .shoplook-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--label);
+    }
+    .shoplook-row-name {
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      font-size: 19px;
+    }
+    .shoplook-row-price {
+      font-size: 14px;
+      color: var(--ink-70);
+    }
+
+    /* ============ Over Wit ============ */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: clamp(40px, 6vw, 120px);
+    }
+    .about-img {
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      width: 100%;
+    }
+    .about-text { padding-right: clamp(0px, 3vw, 48px); }
+    .about-title {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 3.8vw, 56px);
+      line-height: 1.08;
+      letter-spacing: 0.005em;
+      font-weight: var(--display-weight);
+      margin: 24px 0 32px;
+    }
+    .about-title em { font-family: var(--font-accent); font-style: italic; }
+    .about-body {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--ink-70);
+      max-width: 540px;
+    }
+    .about-body p { margin: 0 0 16px; }
+    .about-sig {
+      font-family: var(--font-hand);
+      font-size: 34px;
+      margin-top: 28px;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .about-cta { margin-top: 36px; }
+
+    /* ============ Journal ============ */
+    .journal-head {
+      display: flex; justify-content: space-between; align-items: end;
+      margin-bottom: clamp(40px, 5vw, 80px);
+      gap: 40px;
+    }
+    .journal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(24px, 3vw, 56px);
+    }
+    .journal-card { display: block; }
+    .journal-img {
+      aspect-ratio: 4/5;
+      width: 100%; object-fit: cover;
+      margin-bottom: 24px;
+      background: var(--cream);
+    }
+    .journal-meta {
+      display: flex; gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+      margin-bottom: 12px;
+    }
+    .journal-meta span:not(:first-child)::before {
+      content: '·'; margin-right: 16px; margin-left: -4px;
+    }
+    .journal-card h3 {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 1.9vw, 28px);
+      line-height: 1.22;
+      letter-spacing: 0.005em;
+      font-weight: var(--display-weight);
+      margin: 0 0 12px;
+      text-wrap: balance;
+    }
+    .journal-card p {
+      color: var(--ink-70);
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+      max-width: 320px;
+    }
+
+    /* ============ Onze bruiden ============ */
+    .brides-head {
+      margin-bottom: clamp(40px, 5vw, 72px);
+      max-width: 760px;
+    }
+    .brides-head .eyebrow { display: block; margin-bottom: 20px; }
+    .brides-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5.2vw, 76px);
+      line-height: 1.0;
+      letter-spacing: var(--ls-tight);
+      font-weight: var(--display-weight);
+      margin: 0 0 22px;
+    }
+    .brides-title em { font-family: var(--font-accent); font-style: italic; }
+    .brides-lead {
+      font-size: clamp(16px, 1.3vw, 19px);
+      line-height: 1.65;
+      color: var(--ink-70);
+      max-width: 520px;
+      margin: 0;
+    }
+    .brides-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(16px, 2vw, 32px);
+    }
+    .bride { margin: 0; }
+    .bride image-slot {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: var(--cream);
+      margin-bottom: 16px;
+    }
+    .bride figcaption {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .bride-name {
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      font-size: 20px;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+    .bride-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+    }
+    .brides-quote {
+      margin: clamp(52px, 6vw, 92px) 0 0;
+      max-width: 1000px;
+      border-top: 1px solid var(--line);
+      padding-top: clamp(32px, 4vw, 52px);
+    }
+    .brides-quote p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: var(--display-weight);
+      font-size: clamp(25px, 3vw, 42px);
+      line-height: 1.3;
+      letter-spacing: 0.005em;
+      color: var(--ink);
+      margin: 0 0 22px;
+      text-wrap: balance;
+    }
+    .brides-quote cite {
+      font-family: var(--font-mono);
+      font-style: normal;
+      font-size: 12px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+    }
+
+    /* ============ Instagram ============ */
+    .insta-head {
+      text-align: center;
+      margin-bottom: clamp(32px, 4vw, 56px);
+    }
+    .insta-head .eyebrow { margin-bottom: 16px; display: block; }
+    .insta-head h3 {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 2.6vw, 38px);
+      font-weight: var(--display-weight);
+      margin: 0 0 8px;
+      letter-spacing: 0.005em;
+    }
+    .insta-head h3 em { font-family: var(--font-accent); font-style: italic; }
+    .insta-head .handle {
+      font-family: var(--font-hand);
+      color: var(--accent);
+      font-size: 24px;
+    }
+    .insta-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 2px;
+    }
+    .insta-grid a {
+      position: relative;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      background: var(--cream);
+    }
+    .insta-grid img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .8s cubic-bezier(.23,1,.32,1);
+    }
+    .insta-grid a:hover img { transform: scale(1.04); }
+
+    /* ============ Newsletter ============ */
+    .newsletter {
+      background: var(--cream);
+      padding: clamp(80px, 10vw, 140px) var(--gutter);
+      text-align: center;
+    }
+    .newsletter-eyebrow { margin-bottom: 24px; }
+    .newsletter h3 {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3.4vw, 46px);
+      font-weight: var(--display-weight);
+      letter-spacing: 0.005em;
+      margin: 0 0 16px;
+      text-wrap: balance;
+    }
+    .newsletter h3 em { font-family: var(--font-accent); font-style: italic; }
+    .newsletter p {
+      max-width: 480px;
+      margin: 0 auto 40px;
+      color: var(--ink-70);
+      line-height: 1.65;
+    }
+    .newsletter-form {
+      display: flex;
+      max-width: 520px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--ink);
+    }
+    .newsletter-form input {
+      flex: 1;
+      background: transparent;
+      border: 0;
+      outline: 0;
+      padding: 16px 4px;
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 15px;
+      color: var(--ink);
+    }
+    .newsletter-form input::placeholder { color: var(--ink-50); }
+    .newsletter-form button {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: var(--ls-xwide);
+      text-transform: uppercase;
+      padding: 8px 16px;
+      color: var(--ink);
+    }
+    .newsletter-form button:hover { color: var(--accent); }
+    .newsletter-hand {
+      margin-top: 28px;
+    }
+    .newsletter-hand .hand { font-size: 26px; color: var(--accent); }
+
+    /* ============ Responsive ============ */
+    @media (max-width: 1024px) {
+      .edit-grid { grid-template-columns: repeat(3, 1fr); }
+      .edit-grid .product:nth-child(4) { display: none; }
+      .editorial { grid-template-columns: 1fr; grid-template-rows: auto auto; height: auto; }
+      .editorial-img { height: 460px; min-height: 0; }
+      .shoplook, .about { grid-template-columns: 1fr; }
+      .journal-grid { grid-template-columns: 1fr 1fr; }
+      .journal-card:nth-child(3) { display: none; }
+      .insta-grid { grid-template-columns: repeat(3, 1fr); }
+      .brides-grid { grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 3vw, 32px) 24px; }
+    }
+    @media (max-width: 860px) {
+      /* Hero-varianten stapelen op mobiel */
+      html[data-hero="split"] .hero,
+      html[data-hero="diptych"] .hero {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 0;
+      }
+      html[data-hero="split"] .hero-img-main {
+        height: auto;
+        aspect-ratio: 4/5;
+        object-position: center 15%;
+      }
+      html[data-hero="split"] .hero-pane {
+        padding: clamp(36px, 9vw, 56px) var(--gutter) clamp(48px, 11vw, 72px);
+      }
+      html[data-hero="split"] .hero-text { max-width: none; }
+      html[data-hero="diptych"] .hero-img-side { display: none; }
+      html[data-hero="diptych"] .hero-img-main { aspect-ratio: 4/5; height: auto; }
+      html[data-hero="diptych"] .hero { position: relative; }
+      html[data-hero="full"] .hero { height: 64vh; min-height: 440px; }
+      /* Full hero: text + meta both absolute-bottom — they collide on narrow
+         screens. Give the headline the full width and drop the right-hand meta. */
+      html[data-hero="full"] .hero-text {
+        right: var(--gutter);
+        max-width: none;
+      }
+      html[data-hero="full"] .hero-meta { display: none; }
+    }
+    @media (max-width: 640px) {
+      .edit-grid { grid-template-columns: 1fr 1fr; }
+      .edit-grid .product:nth-child(n+3) { display: none; }
+      .journal-grid { grid-template-columns: 1fr; }
+      .insta-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ============================================================
+       FULL-SCREEN — edge-to-edge layer (appended last, wins by order)
+       ============================================================ */
+    :root {
+      --gutter: clamp(18px, 2.6vw, 56px);
+      --section-y: clamp(80px, 9vw, 152px);
+    }
+
+    /* Drop the 1400px centered cap — every block spans the viewport */
+    .section-narrow { max-width: none; margin: 0; }
+
+    /* Hero fills the screen */
+    html[data-hero="full"] .hero {
+      height: 90vh;
+      max-height: none;
+    }
+
+    /* Instagram mosaic — pull out to the literal viewport edges */
+    .insta-grid {
+      margin-left: calc(-1 * var(--gutter));
+      margin-right: calc(-1 * var(--gutter));
+      gap: 4px;
+    }
+
+    /* Categorieën — images bleed to the edges, heading + labels stay readable */
+    .categories { padding-left: 0; padding-right: 0; }
+    .cat-head { padding-left: var(--gutter); padding-right: var(--gutter); }
+    .cat-grid { gap: 4px; }
+    .cat-label { padding: 0 0 10px; }
+    .cat-tile:first-child .cat-label { padding-left: var(--gutter); }
+    .cat-tile:last-child .cat-label { padding-right: var(--gutter); }
+
+    /* Editorial campaign — full bleed, taller */
+    .editorial {
+      width: 100%;
+      height: clamp(620px, 64vw, 880px);
+    }
+
+    /* Intro: a touch wider, still readable */
+    .intro { max-width: 1180px; }
+
+    /* De editie + Journal — card grids bleed to the edges (heads stay inset) */
+    .edit-grid,
+    .journal-grid {
+      margin-left: calc(-1 * var(--gutter));
+      margin-right: calc(-1 * var(--gutter));
+    }
+
+    /* Shop de look — image bleeds to the left edge, copy stays inset */
+    section[data-screen-label="Shop de look"] { padding-left: 0; padding-right: 0; }
+    .shoplook-text { padding-left: clamp(24px, 3vw, 52px); padding-right: clamp(24px, 4vw, 64px); }
+
+    /* Over Wit — image bleeds to the right edge, copy stays inset */
+    section[data-screen-label="Over Wit"] { padding-left: 0; padding-right: 0; }
+    .about-text { padding-left: clamp(24px, 4vw, 64px); padding-right: clamp(24px, 3vw, 52px); }
+
+    /* Product + journal grids stay inset but go full width */
+    .edit-grid { gap: clamp(20px, 1.8vw, 30px) clamp(16px, 1.4vw, 22px); }
+
+    /* On very wide screens, lift column counts so cells don't get huge */
+    @media (min-width: 1700px) {
+      .cat-grid { grid-template-columns: repeat(4, 1fr); }
+      .journal-grid { grid-template-columns: repeat(3, 1fr); }
+      .insta-grid { grid-template-columns: repeat(8, 1fr); }
+    }
+
+    /* Keep the Instagram mosaic edge-to-edge on tablet too */
+    @media (max-width: 1024px) {
+      .insta-grid {
+        margin-left: calc(-1 * var(--gutter));
+        margin-right: calc(-1 * var(--gutter));
+      }
+    }
+  </style>
+  <!-- Geo / LocalBusiness structured data (sitewide) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://witthelabel.be/#organization",
+        "name": "Wit",
+        "url": "https://witthelabel.be/",
+        "logo": "https://witthelabel.be/images/wit-logo.png",
+        "email": "hallo@witthelabel.be",
+        "slogan": "Minimaal van vorm, warm van hart.",
+        "areaServed": "BE",
+        "sameAs": [
+          "https://www.instagram.com/witthelabel"
+        ]
+      },
+      {
+        "@type": "ClothingStore",
+        "@id": "https://witthelabel.be/winkels.html#gent",
+        "name": "Wit — Gent",
+        "url": "https://witthelabel.be/winkels.html",
+        "image": "https://witthelabel.be/images/look-11.jpg",
+        "parentOrganization": { "@id": "https://witthelabel.be/#organization" },
+        "telephone": "+32 9 335 66 77",
+        "email": "hallo@witthelabel.be",
+        "priceRange": "€€",
+        "currenciesAccepted": "EUR",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Serpentstraat 15",
+          "postalCode": "9000",
+          "addressLocality": "Gent",
+          "addressCountry": "BE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 51.0507,
+          "longitude": 3.7250
+        },
+        "hasMap": "https://maps.google.com/?q=Serpentstraat+15,+9000+Gent",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "10:00",
+            "closes": "18:00"
+          }
+        ]
+      },
+      {
+        "@type": "ClothingStore",
+        "@id": "https://witthelabel.be/winkels.html#antwerpen",
+        "name": "Wit — Antwerpen",
+        "url": "https://witthelabel.be/winkels.html",
+        "image": "https://witthelabel.be/images/look-09.jpg",
+        "parentOrganization": { "@id": "https://witthelabel.be/#organization" },
+        "telephone": "+32 3 222 00 44",
+        "email": "hallo@witthelabel.be",
+        "priceRange": "€€",
+        "currenciesAccepted": "EUR",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Leopoldstraat 8",
+          "postalCode": "2000",
+          "addressLocality": "Antwerpen",
+          "addressCountry": "BE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 51.2120,
+          "longitude": 4.4020
+        },
+        "hasMap": "https://maps.google.com/?q=Leopoldstraat+8,+2000+Antwerpen",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "11:00",
+            "closes": "18:30"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ============ Header ============ -->
+  <header class="header" data-screen-label="Header">
+    <div class="announce">
+      <span>Binnenlopen zonder afspraak · Gent &amp; Antwerpen · Vandaag mee naar huis</span>
+    </div>
+    <nav class="nav">
+      <div class="nav-left">
+        <div class="nav-dd">
+          <a href="shop.html">Shop</a>
+          <div class="nav-dd-menu">
+            <a href="shop.html" class="nav-dd-all">Alle stuks</a>
+            <div class="nav-dd-sep"></div>
+            <a href="shop.html?cat=jurken">Jurken</a>
+            <a href="shop.html?cat=rokken">Rokken &amp; broeken</a>
+            <a href="shop.html?cat=tops">Tops &amp; bloezen</a>
+            <a href="shop.html?cat=sets">Tweedelig</a>
+            <a href="shop.html?cat=accessoires">Accessoires</a>
+          </div>
+        </div>
+        <a href="looks.html">Shop the look</a>
+        <a href="journal.html">Journal</a>
+        <a href="over-wit.html">Over Wit</a>
+      </div>
+      <a href="index.html" class="brand">
+        <img src="images/wit-logo.png" alt="Wit" />
+      </a>
+      <div class="nav-right">
+        <a href="winkels.html">Winkels</a>
+        <a href="bruiden.html">Onze bruiden</a>
+        <a href="mandje.html" class="nav-cart" data-count="0" aria-label="Tas — 0 artikelen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5.5 8h13l-0.8 11.5a1 1 0 0 1-1 0.9H7.3a1 1 0 0 1-1-0.9L5.5 8z"/>
+            <path d="M9 8.5V6.5a3 3 0 0 1 6 0v2"/>
+          </svg>
+          <span class="nav-cart-count">0</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ Hero ============ -->
+  <section class="hero" data-screen-label="Hero">
+    <img class="hero-img-main" src="images/look-05.jpg" alt="Wit — Lente 2026, tweedelig in ivoor" />
+    <img class="hero-img-side" src="images/look-04.jpg" alt="Wit — detail achterzijde vest" />
+
+    <div class="hero-pane">
+      <div class="hero-text">
+        <div class="eyebrow hero-eyebrow">Lente · Zomer 2026</div>
+        <h1 class="hero-title">Iets om<br/><em>in te blijven</em> leven.</h1>
+        <div class="hero-cta-row">
+          <a href="shop.html" class="btn">Shop de collectie</a>
+          <a href="#" class="link-u">Bekijk de lookbook</a>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <div class="lead">Prêt-à-porter bruidsmode voor de moderne bruid. Binnenlopen kan — geen afspraak nodig.</div>
+        <div class="hero-counter" style="margin-top:24px"><strong>01</strong> &nbsp;/&nbsp; 04</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Intro statement ============ -->
+  <section class="intro" data-screen-label="Intro">
+    <div class="eyebrow intro-eyebrow">Wit · sinds 2019</div>
+    <h2 class="intro-title">
+      Bruidsmode voor de mooiste dag — <em>en elke dag daarna</em>. Elk stuk is bedacht om opnieuw gedragen te worden, niet om één keer te schitteren.
+    </h2>
+    <p class="intro-body">
+      We maken prêt-à-porter bruidskleding voor wie zichzelf wil blijven op haar trouwdag. High-fashion zonder het zware prijskaartje — geen afspraak, geen wachttijd. Je past rustig, en je neemt je look dezelfde dag mee naar huis.
+    </p>
+  </section>
+
+  <!-- ============ Categorieën ============ -->
+  <section class="section section-narrow categories" data-screen-label="Categorieën">
+    <div class="cat-head">
+      <span class="eyebrow">Shop per categorie</span>
+    </div>
+    <div class="cat-grid">
+      <a href="shop.html" class="cat-tile">
+        <div class="cat-img"><img src="images/look-01.jpg" alt="Jurken" /></div>
+        <div class="cat-label">Jurken <span class="arr">→</span></div>
+      </a>
+      <a href="shop.html" class="cat-tile">
+        <div class="cat-img"><img src="images/look-05.jpg" alt="Rokken" /></div>
+        <div class="cat-label">Rokken <span class="arr">→</span></div>
+      </a>
+      <a href="shop.html" class="cat-tile">
+        <div class="cat-img"><img src="images/look-02.jpg" alt="Tops" /></div>
+        <div class="cat-label">Tops <span class="arr">→</span></div>
+      </a>
+      <a href="shop.html" class="cat-tile">
+        <div class="cat-img"><img src="images/look-10.jpg" alt="Accessoires" /></div>
+        <div class="cat-label">Accessoires <span class="arr">→</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ Editorial ============ -->
+  <section class="editorial" data-screen-label="Editorial">
+    <div class="editorial-pane">
+      <div>
+        <div class="eyebrow editorial-eyebrow">Campagne · Lente '26</div>
+        <h2 class="editorial-title">Een ochtend, <em>opnieuw</em>.</h2>
+        <p class="editorial-body">
+          Gefotografeerd in stil daglicht door Studio Léau. De nieuwe collectie draait om een handvol silhouetten — elk bedacht om opnieuw te dragen, te combineren en te onthouden voor meer dan één dag.
+        </p>
+        <a href="#" class="btn btn-ghost">Bekijk de campagne</a>
+      </div>
+      <div class="editorial-foot">
+        <div class="editorial-credits">
+          Fotografie &nbsp;·&nbsp; Studio Léau<br/>
+          Styling &nbsp;·&nbsp; Eline van der Velde<br/>
+          Model &nbsp;·&nbsp; Margot R. bij IMM
+        </div>
+        <div class="hero-counter"><strong>LZ</strong> &nbsp;/&nbsp; 2026</div>
+      </div>
+    </div>
+    <img class="editorial-img" src="images/look-09.jpg" alt="Wit LZ26 campagnebeeld" />
+    <span class="hand-tag" style="right: clamp(48px,7vw,120px); top: -14px; transform: rotate(-8deg);">stil licht</span>
+  </section>
+
+  <!-- ============ De editie ============ -->
+  <section class="section section-narrow" data-screen-label="De editie">
+    <div class="edit-head">
+      <span class="eyebrow">Nieuw binnen</span>
+      <h2 class="display-l">De lente-editie</h2>
+      <a href="shop.html" class="link-u">Shop alle 24 stuks →</a>
+    </div>
+
+    <div class="edit-grid">
+      <a href="product.html?id=cellan-jurk" class="product">
+        <div class="product-img"><img src="images/look-01.jpg" alt="Cellan jurk" /></div>
+        <div class="product-meta">
+          <span class="product-tag">De ceremonie</span>
+          <span class="product-name">Cellan</span>
+          <span class="product-price">€ 290</span>
+        </div>
+      </a>
+      <a href="product.html?id=maud-jurk" class="product">
+        <div class="product-img"><img src="images/look-06.jpg" alt="Maud jurk" /></div>
+        <div class="product-meta">
+          <span class="product-tag">Het feest</span>
+          <span class="product-name">Maud</span>
+          <span class="product-price">€ 480</span>
+        </div>
+      </a>
+      <a href="product.html?id=lou-set" class="product">
+        <div class="product-img"><img src="images/look-04.jpg" alt="Lou tweedelig" /></div>
+        <div class="product-meta">
+          <span class="product-tag">Tweedelig</span>
+          <span class="product-name">Lou Set</span>
+          <span class="product-price">€ 640</span>
+        </div>
+      </a>
+      <a href="product.html?id=nora-knit" class="product">
+        <div class="product-img"><img src="images/look-02.jpg" alt="Nora knit" /></div>
+        <div class="product-meta">
+          <span class="product-tag">Laagje</span>
+          <span class="product-name">Nora Knit</span>
+          <span class="product-price">€ 180</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ Shop de look ============ -->
+  <section class="section section-narrow" data-screen-label="Shop de look">
+    <div class="shoplook">
+      <div class="shoplook-img-wrap">
+        <img src="images/look-04.jpg" alt="Lou tweedelig met strikvest" />
+        <span class="hand-tag" style="left: 14px; top: -16px; transform: rotate(-11deg);">warm</span>
+        <button class="shoplook-dot" style="top: 22%; left: 48%;" data-add data-id="fleur-oorbel" data-name="Fleur oorbel" data-price="70" data-variant="" data-pos="50% 22%" aria-label="Fleur oorbel toevoegen aan mandje"><span class="shoplook-dot-glyph">+</span><span class="shoplook-dot-label">Fleur oorbel · € 70</span></button>
+        <button class="shoplook-dot" style="top: 42%; left: 50%;" data-add data-id="lou-vest" data-name="Lou vest" data-price="280" data-variant="S" data-pos="50% 34%" aria-label="Lou vest toevoegen aan mandje"><span class="shoplook-dot-glyph">+</span><span class="shoplook-dot-label">Lou vest · € 280</span></button>
+        <button class="shoplook-dot" style="top: 72%; left: 44%;" data-add data-id="lou-rok" data-name="Lou rok" data-price="320" data-variant="S" data-pos="50% 82%" aria-label="Lou rok toevoegen aan mandje"><span class="shoplook-dot-glyph">+</span><span class="shoplook-dot-label">Lou rok · € 320</span></button>
+      </div>
+      <div class="shoplook-text">
+        <div class="eyebrow shoplook-eyebrow">Look 03 van 12</div>
+        <h2 class="shoplook-title">Het vest, <em>open gedragen</em>.</h2>
+        <p class="lead" style="max-width:420px">
+          Een feestlook, in laagjes. Het Lou-vest over de bijpassende rok — combineer en blijf dragen, lang na de dag zelf.
+        </p>
+
+        <div class="shoplook-items">
+          <a class="shoplook-row" href="product.html?id=lou-vest">
+            <span class="shoplook-num">01</span>
+            <span class="shoplook-row-name">Lou vest — ivoor crêpe</span>
+            <span class="shoplook-row-price">€ 280</span>
+          </a>
+          <a class="shoplook-row" href="product.html?id=lou-rok">
+            <span class="shoplook-num">02</span>
+            <span class="shoplook-row-name">Lou rok — recht model</span>
+            <span class="shoplook-row-price">€ 320</span>
+          </a>
+          <a class="shoplook-row" href="product.html?id=fleur-oorbel">
+            <span class="shoplook-num">03</span>
+            <span class="shoplook-row-name">Fleur oorbel — verguld</span>
+            <span class="shoplook-row-price">€ 70</span>
+          </a>
+        </div>
+
+        <div style="margin-top:32px"><a href="looks.html" class="link-u">Bekijk alle 12 looks →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Over Wit ============ -->
+  <section class="section section-narrow" data-screen-label="Over Wit" style="padding-top:0">
+    <div class="about">
+      <div class="about-text">
+        <div class="eyebrow">Een woordje uit het atelier</div>
+        <h2 class="about-title">Bruidsmode, <em>dichtbij</em>.</h2>
+        <div class="about-body">
+          <p>Wit begon met één idee: dat een bruid er onmiskenbaar als zichzelf uitziet. Geen afspraak, geen drempel — gewoon binnenspringen in Gent of Antwerpen, rustig passen, en je favoriet dezelfde dag meenemen.</p>
+          <p>Geen tule, geen baleinen. Wel doordachte stof, herhaalbare snitten en een palet dat begint en eindigt in ivoor — high-fashion zonder het zware prijskaartje.</p>
+        </div>
+        <div class="about-sig">warm, eerlijk, dichtbij</div>
+        <div><a href="over-wit.html" class="link-u about-cta">Lees ons verhaal →</a></div>
+      </div>
+      <img class="about-img" src="images/look-11.jpg" alt="In de Wit-boetiek" />
+    </div>
+  </section>
+
+  <!-- ============ Journal ============ -->
+  <section class="section section-narrow" data-screen-label="Journal" style="padding-top:0">
+    <div class="journal-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px">De journal</div>
+        <h2 class="display-l">Notities, <span class="accent">in het wit</span>.</h2>
+      </div>
+      <a href="journal.html" class="link-u">Alle artikels →</a>
+    </div>
+
+    <div class="journal-grid">
+      <a href="article.html" class="journal-card">
+        <img class="journal-img" src="images/look-07.jpg" alt="" />
+        <div class="journal-meta"><span>Atelier</span><span>04 min</span></div>
+        <h3>Waarom we niet meer over "tweede looks" praten.</h3>
+        <p>Over herdraagbare bruidsmode en het loslaten van de eendagsjurk.</p>
+      </a>
+      <a href="article.html" class="journal-card">
+        <img class="journal-img" src="images/look-03.jpg" alt="" />
+        <div class="journal-meta"><span>Echte bruiden</span><span>06 min</span></div>
+        <h3>Anouk &amp; Pieter, getrouwd in Gent, in de Nora-knit.</h3>
+        <p>Een ceremonie op het stadhuis, een laagje kasjmier, en een lunch die uitliep tot vijf uur.</p>
+      </a>
+      <a href="article.html" class="journal-card">
+        <img class="journal-img" src="images/look-09.jpg" alt="" />
+        <div class="journal-meta"><span>Proces</span><span>08 min</span></div>
+        <h3>De knoopjes achteraan het Lou-vest, uitgelegd.</h3>
+        <p>Drie omhulde knoopjes, twee gram gewicht, met de hand gezet door Mara in Porto.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ Instagram ============ -->
+  <section class="section section-narrow" data-screen-label="Instagram" style="padding-top:0">
+    <div class="insta-head">
+      <span class="eyebrow">Op Instagram</span>
+      <h3>Gezien in <em>Wit</em></h3>
+      <div class="handle">@wit.thelabel</div>
+    </div>
+    <div class="insta-grid">
+      <a href="#"><img src="images/look-08.jpg" alt="" /></a>
+      <a href="#"><img src="images/look-10.jpg" alt="" /></a>
+      <a href="#"><img src="images/look-05.jpg" alt="" /></a>
+      <a href="#"><img src="images/look-12.jpg" alt="" /></a>
+      <a href="#"><img src="images/look-02.jpg" alt="" /></a>
+      <a href="#"><img src="images/look-06.jpg" alt="" /></a>
+    </div>
+  </section>
+
+  <!-- ============ Newsletter ============ -->
+  <section class="newsletter" data-screen-label="Newsletter">
+    <div class="eyebrow newsletter-eyebrow">Blijf dichtbij</div>
+    <h3>Liefdesbrieven, <em>per seizoen</em>.</h3>
+    <p>Nieuwe silhouetten, winkelnieuws en af en toe een woordje uit het atelier. Geen ruis.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Dankjewel'">
+      <input type="email" placeholder="Je e-mailadres" required />
+      <button type="submit">Inschrijven →</button>
+    </form>
+    <div class="newsletter-hand"><span class="hand">tot snel, ergens tussen Gent &amp; Antwerpen</span></div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer class="footer" data-screen-label="Footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="images/wit-logo.png" alt="Wit" /></div>
+        <p class="footer-tag">Minimaal van vorm, warm van hart.</p>
+        <p class="footer-addr">
+          Serpentstraat 15, 9000 Gent<br/>
+          Leopoldstraat 8, 2000 Antwerpen<br/>
+          hallo@witthelabel.be
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="shop.html">Alle stuks</a></li>
+          <li><a href="shop.html">Ceremonie</a></li>
+          <li><a href="shop.html">Feest</a></li>
+          <li><a href="shop.html">Separates</a></li>
+          <li><a href="shop.html">Accessoires</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Atelier</h4>
+        <ul>
+          <li><a href="winkels.html">Onze winkels</a></li>
+          <li><a href="#">Paswijzer</a></li>
+          <li><a href="maatgids.html">Maat &amp; fit</a></li>
+          <li><a href="#">Onderhoud</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Het huis</h4>
+        <ul>
+          <li><a href="over-wit.html">Ons verhaal</a></li>
+          <li><a href="journal.html">Journal</a></li>
+          <li><a href="#">Duurzaamheid</a></li>
+          <li><a href="winkels.html">Verkooppunten</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hulp</h4>
+        <ul>
+          <li><a href="verzending.html">Verzending</a></li>
+          <li><a href="retour.html">Retour</a></li>
+          <li><a href="winkels.html#contact">Contact</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Wit · Gent &amp; Antwerpen, BE</span>
+      <span>Privacy · Voorwaarden · Cookies</span>
+    </div>
+  </footer>
+
+  <!-- ============ Tweaks panel ============ -->
+  <div id="tweaks-root"></div>
+
+  <script src="image-slot.js"></script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel">
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "hero": "full",
+      "navfont": "serif"
+    }/*EDITMODE-END*/;
+
+    function Tweaks() {
+      const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+      React.useEffect(() => {
+        document.documentElement.setAttribute('data-hero', t.hero);
+        document.documentElement.setAttribute('data-navfont', t.navfont);
+      }, [t.hero, t.navfont]);
+
+      return (
+        <TweaksPanel title="Tweaks">
+          <TweakSection label="Hero-layout" />
+          <TweakRadio
+            label="Layout"
+            value={t.hero}
+            options={[
+              { value: 'full',    label: 'Vol' },
+              { value: 'split',   label: 'Split' },
+              { value: 'diptych', label: 'Diptiek' },
+            ]}
+            onChange={(v) => setTweak('hero', v)}
+          />
+
+          <TweakSection label="Navigatie-font" />
+          <TweakRadio
+            label="Font"
+            value={t.navfont}
+            options={[
+              { value: 'mono',  label: 'Mono' },
+              { value: 'sans',  label: 'Sans' },
+              { value: 'serif', label: 'Serif' },
+            ]}
+            onChange={(v) => setTweak('navfont', v)}
+          />
+        </TweaksPanel>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<Tweaks />);
+  </script>
+  <script src="site.js"></script>
+  <script>
+    (function () {
+      document.querySelectorAll('.shoplook-dot[data-add]').forEach(function (dot) {
+        dot.addEventListener('click', function () {
+          window.WitCart.add({
+            id: dot.dataset.id,
+            name: dot.dataset.name,
+            variant: dot.dataset.variant,
+            price: +dot.dataset.price,
+            img: 'images/look-04.jpg',
+            imgPos: dot.dataset.pos,
+            qty: 1
+          });
+          var glyph = dot.querySelector('.shoplook-dot-glyph');
+          var label = dot.querySelector('.shoplook-dot-label');
+          var orig = label ? label.textContent : '';
+          dot.classList.add('added');
+          if (glyph) glyph.textContent = '✓';
+          if (label) label.textContent = 'Toegevoegd ✓';
+          clearTimeout(dot._t);
+          dot._t = setTimeout(function () {
+            dot.classList.remove('added');
+            if (glyph) glyph.textContent = '+';
+            if (label) label.textContent = orig;
+          }, 1800);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

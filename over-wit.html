@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="nl" data-navfont="serif">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Over Wit — het atelier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Kalam:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Geo / LocalBusiness structured data (sitewide) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://witthelabel.be/#organization",
+        "name": "Wit",
+        "url": "https://witthelabel.be/",
+        "logo": "https://witthelabel.be/images/wit-logo.png",
+        "email": "hallo@witthelabel.be",
+        "slogan": "Minimaal van vorm, warm van hart.",
+        "areaServed": "BE",
+        "sameAs": [
+          "https://www.instagram.com/witthelabel"
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* ============ Head ============ */
+    .aw-head {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: clamp(64px, 8vw, 120px) var(--gutter) clamp(40px, 5vw, 64px);
+      text-align: center;
+    }
+    .aw-eyebrow { display: block; margin-bottom: 24px; }
+    .aw-title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(52px, 9vw, 132px);
+      line-height: 0.96;
+      letter-spacing: -0.02em;
+      margin: 0 0 28px;
+    }
+    .aw-title em { font-family: var(--font-accent); font-style: italic; font-weight: 300; }
+    .aw-sub {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: clamp(19px, 1.8vw, 25px);
+      color: var(--ink-70);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* ============ Manifest ============ */
+    .aw-manifest {
+      background: var(--cream);
+      padding: clamp(72px, 10vw, 150px) var(--gutter);
+    }
+    .aw-manifest-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .aw-manifest p {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(26px, 3.4vw, 50px);
+      line-height: 1.28;
+      letter-spacing: 0.002em;
+      color: var(--ink);
+      margin: 0;
+      text-wrap: balance;
+    }
+    .aw-manifest em { font-family: var(--font-accent); font-style: italic; }
+
+    /* ============ Origin story ============ */
+    .aw-story {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: clamp(80px, 10vw, 150px) var(--gutter);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 110px);
+      align-items: center;
+    }
+    .aw-story-media {
+      position: relative;
+      aspect-ratio: 4/5;
+      background: var(--cream);
+      overflow: hidden;
+    }
+    .aw-story-media img { width: 100%; height: 100%; object-fit: cover; }
+    .aw-story-tag {
+      position: absolute;
+      left: 16px; top: -16px;
+      font-family: var(--font-hand);
+      font-size: clamp(28px, 2.4vw, 40px);
+      color: var(--ink);
+      transform: rotate(-9deg);
+    }
+    .aw-kicker {
+      display: block;
+      margin-bottom: 20px;
+    }
+    .aw-story-title {
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      font-size: clamp(34px, 4vw, 60px);
+      line-height: 1.04;
+      letter-spacing: -0.01em;
+      margin: 0 0 28px;
+    }
+    .aw-story-title em { font-family: var(--font-accent); font-style: italic; font-weight: 400; }
+    .aw-story-body p {
+      font-size: clamp(15px, 1.2vw, 17px);
+      line-height: 1.75;
+      color: var(--ink-70);
+      margin: 0 0 18px;
+      max-width: 460px;
+    }
+    .aw-story-body p:last-child { margin-bottom: 0; }
+
+    /* ============ Principes ============ */
+    .aw-principles {
+      padding: clamp(72px, 9vw, 140px) var(--gutter);
+      border-top: 1px solid var(--ink-12);
+    }
+    .aw-principles-head {
+      max-width: 1500px;
+      margin: 0 auto clamp(48px, 6vw, 80px);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .aw-principles-head h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(32px, 4vw, 56px);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+    .aw-principles-head h2 em { font-family: var(--font-accent); font-style: italic; }
+    .aw-grid {
+      max-width: 1500px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(32px, 3vw, 56px);
+    }
+    .aw-pillar { border-top: 1.5px solid var(--ink); padding-top: 22px; }
+    .aw-pillar-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      color: var(--label);
+      display: block;
+      margin-bottom: 18px;
+    }
+    .aw-pillar h3 {
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      font-size: clamp(22px, 1.9vw, 28px);
+      line-height: 1.12;
+      margin: 0 0 12px;
+    }
+    .aw-pillar h3 em { font-family: var(--font-accent); font-style: italic; }
+    .aw-pillar p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--ink-70);
+      margin: 0;
+    }
+
+    /* ============ Founder quote ============ */
+    .aw-quote {
+      background: var(--ink);
+      color: var(--bg);
+      padding: clamp(80px, 11vw, 160px) var(--gutter);
+    }
+    .aw-quote-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .aw-quote blockquote {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(26px, 3.2vw, 46px);
+      line-height: 1.3;
+      letter-spacing: 0.004em;
+      margin: 0 0 36px;
+      text-wrap: balance;
+    }
+    .aw-quote blockquote em { font-family: var(--font-accent); font-style: italic; }
+    .aw-quote cite {
+      font-family: var(--font-mono);
+      font-style: normal;
+      font-size: 12px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ============ Twee ateliers ============ */
+    .aw-ateliers {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: clamp(80px, 10vw, 150px) var(--gutter);
+    }
+    .aw-ateliers-head {
+      text-align: center;
+      margin-bottom: clamp(40px, 5vw, 64px);
+    }
+    .aw-ateliers-head h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(32px, 4vw, 56px);
+      letter-spacing: -0.01em;
+      margin: 0 0 14px;
+    }
+    .aw-ateliers-head h2 em { font-family: var(--font-accent); font-style: italic; }
+    .aw-ateliers-head p {
+      font-size: 15px;
+      color: var(--ink-70);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .aw-ateliers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(24px, 3vw, 48px);
+    }
+    .aw-atelier { display: block; }
+    .aw-atelier-img {
+      aspect-ratio: 16/11;
+      background: var(--cream);
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+    .aw-atelier-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(.23,1,.32,1);
+    }
+    .aw-atelier:hover .aw-atelier-img img { transform: scale(1.04); }
+    .aw-atelier-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .aw-atelier-city {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(24px, 2.2vw, 32px);
+    }
+    .aw-atelier-addr {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    /* ============ Closing ============ */
+    .aw-close {
+      text-align: center;
+      padding: clamp(80px, 10vw, 150px) var(--gutter) clamp(96px, 12vw, 180px);
+      border-top: 1px solid var(--ink-12);
+    }
+    .aw-close-eyebrow { display: block; margin-bottom: 24px; }
+    .aw-close h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(40px, 6vw, 92px);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin: 0 0 36px;
+    }
+    .aw-close h2 em { font-family: var(--font-accent); font-style: italic; font-weight: 300; }
+    .aw-close-actions {
+      display: inline-flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    @media (max-width: 860px) {
+      .aw-story { grid-template-columns: 1fr; gap: 36px; }
+      .aw-story-media { max-width: 460px; }
+      .aw-grid { grid-template-columns: 1fr 1fr; gap: 36px 28px; }
+      .aw-ateliers-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      .aw-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       FULL-SCREEN — edge-to-edge layer (appended last, wins by order)
+       ============================================================ */
+    :root { --gutter: clamp(18px, 2.6vw, 56px); }
+    .aw-story, .aw-principles-head, .aw-grid, .aw-ateliers { max-width: none; }
+  </style>
+</head>
+<body>
+  <header class="header" data-screen-label="Header">
+    <div class="announce"><span>Binnenlopen zonder afspraak · Gent &amp; Antwerpen · Vandaag mee naar huis</span></div>
+    <nav class="nav">
+      <div class="nav-left">
+        <div class="nav-dd">
+          <a href="shop.html">Shop</a>
+          <div class="nav-dd-menu">
+            <a href="shop.html" class="nav-dd-all">Alle stuks</a>
+            <div class="nav-dd-sep"></div>
+            <a href="shop.html?cat=jurken">Jurken</a>
+            <a href="shop.html?cat=rokken">Rokken &amp; broeken</a>
+            <a href="shop.html?cat=tops">Tops &amp; bloezen</a>
+            <a href="shop.html?cat=sets">Tweedelig</a>
+            <a href="shop.html?cat=accessoires">Accessoires</a>
+          </div>
+        </div>
+        <a href="looks.html">Shop the look</a>
+        <a href="journal.html">Journal</a>
+        <a href="over-wit.html" style="color:var(--ink);font-weight:500">Over Wit</a>
+      </div>
+      <a href="index.html" class="brand"><img src="images/wit-logo.png" alt="Wit" /></a>
+      <div class="nav-right">
+        <a href="winkels.html">Winkels</a>
+        <a href="bruiden.html">Onze bruiden</a>
+        <a href="mandje.html" class="nav-cart" data-count="0" aria-label="Tas — 0 artikelen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5.5 8h13l-0.8 11.5a1 1 0 0 1-1 0.9H7.3a1 1 0 0 1-1-0.9L5.5 8z"/>
+            <path d="M9 8.5V6.5a3 3 0 0 1 6 0v2"/>
+          </svg>
+          <span class="nav-cart-count">0</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ Head ============ -->
+  <section class="aw-head" data-screen-label="Titel">
+    <span class="eyebrow aw-eyebrow">— Het atelier achter het label</span>
+    <h1 class="aw-title">Over <em>Wit</em>.</h1>
+    <p class="aw-sub">Bruidsmode zonder drempel — doordacht, herhaalbaar, en dichtbij. Twee ateliers, één idee: dat je er als jezelf uitziet.</p>
+  </section>
+
+  <!-- ============ Manifest ============ -->
+  <section class="aw-manifest" data-screen-label="Manifest">
+    <div class="aw-manifest-inner">
+      <p>We begonnen met één overtuiging: dat een trouwjurk geen <em>kostuum</em> hoeft te zijn. Geen baleinen, geen doos op zolder — wel een stuk dat je <em>blijft</em> dragen.</p>
+    </div>
+  </section>
+
+  <!-- ============ Origin story ============ -->
+  <section class="aw-story" data-screen-label="Verhaal">
+    <div class="aw-story-media">
+      <span class="aw-story-tag">het begin</span>
+      <img src="images/look-11.jpg" alt="In de Wit-boetiek" />
+    </div>
+    <div class="aw-story-text">
+      <span class="eyebrow aw-kicker">Hoe het begon</span>
+      <h2 class="aw-story-title">Een boetiek waar je <em>binnenloopt</em>.</h2>
+      <div class="aw-story-body">
+        <p>Wit ontstond uit frustratie met het bruidsritueel: de afspraken weken vooraf, de paskamers achter gordijnen, het wachten op een jurk die maanden later pas arriveert.</p>
+        <p>Het kon eenvoudiger. Een boetiek in Gent, daarna een tweede in Antwerpen — waar je gewoon binnenstapt, rustig past tussen de rekken, en je favoriet dezelfde dag meeneemt. Geen drempel, geen druk.</p>
+        <p>Wat begon als één rek ivoren stukken, groeide tot een volledige collectie. De belofte bleef dezelfde: high-fashion snitten, eerlijk geprijsd, gemaakt om te blijven.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Principes ============ -->
+  <section class="aw-principles" data-screen-label="Principes">
+    <div class="aw-principles-head">
+      <h2>Waar we voor <em>staan</em>.</h2>
+      <span class="eyebrow">Vier principes</span>
+    </div>
+    <div class="aw-grid">
+      <div class="aw-pillar">
+        <span class="aw-pillar-num">01</span>
+        <h3>Geen <em>drempel</em></h3>
+        <p>Binnenlopen zonder afspraak, passen op je gemak, en dezelfde dag mee naar huis. Trouwen begint niet met een wachtlijst.</p>
+      </div>
+      <div class="aw-pillar">
+        <span class="aw-pillar-num">02</span>
+        <h3>Doordachte <em>stof</em></h3>
+        <p>Geen tule, geen baleinen. Wel crêpe, satijn en gebreide stukken die vallen zoals het hoort — en blijven hangen na de dag zelf.</p>
+      </div>
+      <div class="aw-pillar">
+        <span class="aw-pillar-num">03</span>
+        <h3>Eén <em>palet</em></h3>
+        <p>Alles begint en eindigt in ivoor. Een collectie die in zichzelf klopt, zodat elk stuk met het volgende te combineren valt.</p>
+      </div>
+      <div class="aw-pillar">
+        <span class="aw-pillar-num">04</span>
+        <h3>Eerlijk <em>geprijsd</em></h3>
+        <p>High-fashion zonder het zware prijskaartje. We maken in beperkte oplage, dichtbij, en rekenen door wat eerlijk is.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Founder quote ============ -->
+  <section class="aw-quote" data-screen-label="Citaat">
+    <div class="aw-quote-inner">
+      <blockquote>"Ik wou geen jurk ontwerpen voor één dag. Ik wou een stuk maken dat een vrouw <em>de duizend dagen erna</em> nog uit haar kast haalt."</blockquote>
+      <cite>— Charlotte Sikkema, oprichter van Wit</cite>
+    </div>
+  </section>
+
+  <!-- ============ Twee ateliers ============ -->
+  <section class="aw-ateliers" data-screen-label="Ateliers">
+    <div class="aw-ateliers-head">
+      <h2>Twee <em>ateliers</em>.</h2>
+      <p>Allebei een boetiek én een werkplaats — waar passen, herstellen en op maat nemen onder één dak gebeuren.</p>
+    </div>
+    <div class="aw-ateliers-grid">
+      <a href="winkels.html" class="aw-atelier">
+        <div class="aw-atelier-img"><img src="images/look-09.jpg" alt="Het atelier in Gent" /></div>
+        <div class="aw-atelier-row">
+          <span class="aw-atelier-city">Gent</span>
+          <span class="aw-atelier-addr">Serpentstraat 15<br/>Di — Za · 10—18u</span>
+        </div>
+      </a>
+      <a href="winkels.html" class="aw-atelier">
+        <div class="aw-atelier-img"><img src="images/look-07.jpg" alt="Het atelier in Antwerpen" /></div>
+        <div class="aw-atelier-row">
+          <span class="aw-atelier-city">Antwerpen</span>
+          <span class="aw-atelier-addr">Leopoldstraat 8<br/>Di — Za · 11—18u30</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ Closing ============ -->
+  <section class="aw-close" data-screen-label="Kom langs">
+    <span class="eyebrow aw-close-eyebrow">— Tot in de boetiek</span>
+    <h2>Kom gerust <em>langs</em>.</h2>
+    <div class="aw-close-actions">
+      <a href="shop.html" class="link-u">Bekijk de collectie →</a>
+      <a href="winkels.html" class="link-u">Onze winkels &amp; uren →</a>
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer class="footer" data-screen-label="Footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="images/wit-logo.png" alt="Wit" /></div>
+        <p class="footer-tag">Minimaal van vorm, warm van hart.</p>
+        <p class="footer-addr">Serpentstraat 15, 9000 Gent<br/>Leopoldstraat 8, 2000 Antwerpen<br/>hallo@witthelabel.be</p>
+      </div>
+      <div class="footer-col"><h4>Shop</h4><ul>
+        <li><a href="shop.html">Alle stuks</a></li><li><a href="shop.html?cat=jurken">Jurken</a></li>
+        <li><a href="shop.html?cat=rokken">Rokken &amp; broeken</a></li><li><a href="shop.html?cat=sets">Tweedelig</a></li>
+        <li><a href="shop.html?cat=accessoires">Accessoires</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Atelier</h4><ul>
+        <li><a href="winkels.html">Onze winkels</a></li><li><a href="#">Op maat</a></li>
+        <li><a href="maatgids.html">Maat &amp; fit</a></li><li><a href="#">Onderhoud</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Het huis</h4><ul>
+        <li><a href="over-wit.html">Ons verhaal</a></li><li><a href="journal.html">Journal</a></li>
+        <li><a href="bruiden.html">Onze bruiden</a></li><li><a href="winkels.html">Verkooppunten</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Help</h4><ul>
+        <li><a href="verzending.html">Verzending</a></li><li><a href="retour.html">Retour</a></li>
+        <li><a href="winkels.html#contact">Contact</a></li><li><a href="faq.html">FAQ</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Wit · Gent &amp; Antwerpen, BE</span>
+      <span>Privacy · Voorwaarden · Cookies</span>
+    </div>
+  </footer>
+
+  <script src="site.js"></script>
+</body>
+</html>

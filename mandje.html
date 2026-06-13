@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="nl" data-navfont="serif">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jouw mandje — Wit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Kalam:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .cart-wrap {
+      max-width: 1340px;
+      margin: 0 auto;
+      padding: clamp(40px, 5vw, 72px) var(--gutter) clamp(80px, 10vw, 140px);
+    }
+    .cart-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: clamp(32px, 4vw, 52px);
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--ink-12);
+    }
+    .cart-head h1 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(40px, 6vw, 80px);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .cart-head h1 em { font-family: var(--font-accent); font-style: italic; }
+    .cart-head .cart-count {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+    }
+
+    .cart-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: clamp(40px, 5vw, 88px);
+      align-items: start;
+    }
+
+    /* Items */
+    .cart-items { display: flex; flex-direction: column; }
+    .cart-row {
+      display: grid;
+      grid-template-columns: 96px 1fr auto;
+      gap: clamp(18px, 2vw, 28px);
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .cart-row:first-child { padding-top: 0; }
+    .cart-thumb {
+      width: 96px; height: 124px;
+      background: var(--cream);
+      overflow: hidden;
+    }
+    .cart-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .cart-info { display: flex; flex-direction: column; min-width: 0; }
+    .cart-name {
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      font-size: clamp(20px, 1.8vw, 26px);
+      line-height: 1.1;
+      margin: 0 0 6px;
+    }
+    .cart-variant {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+      margin-bottom: 18px;
+    }
+    .cart-qty {
+      display: inline-flex;
+      align-items: center;
+      border: 0.5px solid var(--ink-20, rgba(26,26,24,.2));
+      width: max-content;
+      margin-top: auto;
+    }
+    .cart-qty button {
+      width: 36px; height: 36px;
+      border: 0; background: transparent;
+      cursor: pointer; font-size: 16px; color: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cart-qty button:hover { background: var(--cream); }
+    .cart-qty span {
+      min-width: 36px; text-align: center;
+      font-family: var(--font-mono); font-size: 13px;
+    }
+    .cart-right { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; }
+    .cart-line-price {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 1.5vw, 22px);
+    }
+    .cart-remove {
+      background: none; border: 0; cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--ink-50);
+      padding: 0;
+      transition: color .15s;
+    }
+    .cart-remove:hover { color: var(--ink); text-decoration: underline; }
+
+    /* Summary */
+    .cart-summary {
+      position: sticky;
+      top: 24px;
+      background: var(--cream);
+      padding: clamp(28px, 3vw, 40px);
+    }
+    .cart-summary h2 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+      font-weight: 400;
+      margin: 0 0 24px;
+    }
+    .sum-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 14px;
+      color: var(--ink-70);
+      padding: 10px 0;
+    }
+    .sum-row .v { color: var(--ink); }
+    .sum-row.free .v { color: #4a7c59; }
+    .sum-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 14px;
+      padding-top: 20px;
+      border-top: 1px solid var(--ink-12);
+    }
+    .sum-total .l { font-family: var(--font-display); font-size: 20px; }
+    .sum-total .v { font-family: var(--font-display); font-size: 28px; }
+    .cart-progress {
+      margin: 18px 0 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--label);
+      line-height: 1.6;
+    }
+    .cart-bar {
+      height: 3px;
+      background: var(--ink-12);
+      margin: 8px 0 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cart-bar i { position: absolute; inset: 0 100% 0 0; background: var(--ink); transition: right .4s ease; }
+    .cart-checkout { width: 100%; margin-top: 8px; }
+    .cart-perks {
+      margin-top: 22px;
+      display: flex; flex-direction: column; gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--ink-50);
+    }
+    .cart-cont {
+      display: inline-block;
+      margin-top: 28px;
+    }
+
+    /* Empty */
+    .cart-empty {
+      text-align: center;
+      padding: clamp(48px, 8vw, 100px) 0 clamp(64px, 10vw, 120px);
+    }
+    .cart-empty p {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: clamp(22px, 2.4vw, 32px);
+      color: var(--ink-70);
+      margin: 0 0 32px;
+    }
+
+    @media (max-width: 860px) {
+      .cart-grid { grid-template-columns: 1fr; gap: 40px; }
+      .cart-summary { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" data-screen-label="Header">
+    <div class="announce"><span>Binnenlopen zonder afspraak · Gent &amp; Antwerpen · Vandaag mee naar huis</span></div>
+    <nav class="nav">
+      <div class="nav-left">
+        <div class="nav-dd">
+          <a href="shop.html">Shop</a>
+          <div class="nav-dd-menu">
+            <a href="shop.html" class="nav-dd-all">Alle stuks</a>
+            <div class="nav-dd-sep"></div>
+            <a href="shop.html?cat=jurken">Jurken</a>
+            <a href="shop.html?cat=rokken">Rokken &amp; broeken</a>
+            <a href="shop.html?cat=tops">Tops &amp; bloezen</a>
+            <a href="shop.html?cat=sets">Tweedelig</a>
+            <a href="shop.html?cat=accessoires">Accessoires</a>
+          </div>
+        </div>
+        <a href="looks.html">Shop the look</a>
+        <a href="journal.html">Journal</a>
+        <a href="over-wit.html">Over Wit</a>
+      </div>
+      <a href="index.html" class="brand"><img src="images/wit-logo.png" alt="Wit" /></a>
+      <div class="nav-right">
+        <a href="winkels.html">Winkels</a>
+        <a href="bruiden.html">Onze bruiden</a>
+        <a href="mandje.html" class="nav-cart" data-count="0" aria-label="Mandje — 0 artikelen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5.5 8h13l-0.8 11.5a1 1 0 0 1-1 0.9H7.3a1 1 0 0 1-1-0.9L5.5 8z"/>
+            <path d="M9 8.5V6.5a3 3 0 0 1 6 0v2"/>
+          </svg>
+          <span class="nav-cart-count">0</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="cart-wrap" data-screen-label="Jouw mandje">
+    <div class="cart-head">
+      <h1>Jouw <em>mandje</em>.</h1>
+      <span class="cart-count" id="cart-count-label"></span>
+    </div>
+    <div id="cart-body"></div>
+  </main>
+
+  <footer class="footer" data-screen-label="Footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="images/wit-logo.png" alt="Wit" /></div>
+        <p class="footer-tag">Minimaal van vorm, warm van hart.</p>
+        <p class="footer-addr">Serpentstraat 15, 9000 Gent<br/>Leopoldstraat 8, 2000 Antwerpen<br/>hallo@witthelabel.be</p>
+      </div>
+      <div class="footer-col"><h4>Shop</h4><ul>
+        <li><a href="shop.html">Alle stuks</a></li><li><a href="shop.html?cat=jurken">Jurken</a></li>
+        <li><a href="shop.html?cat=rokken">Rokken &amp; broeken</a></li><li><a href="shop.html?cat=sets">Tweedelig</a></li>
+        <li><a href="shop.html?cat=accessoires">Accessoires</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Atelier</h4><ul>
+        <li><a href="winkels.html">Onze winkels</a></li><li><a href="#">Op maat</a></li>
+        <li><a href="maatgids.html">Maat &amp; fit</a></li><li><a href="#">Onderhoud</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Het huis</h4><ul>
+        <li><a href="over-wit.html">Ons verhaal</a></li><li><a href="journal.html">Journal</a></li>
+        <li><a href="bruiden.html">Onze bruiden</a></li><li><a href="winkels.html">Verkooppunten</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Help</h4><ul>
+        <li><a href="verzending.html">Verzending</a></li><li><a href="retour.html">Retour</a></li>
+        <li><a href="winkels.html#contact">Contact</a></li><li><a href="faq.html">FAQ</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Wit · Gent &amp; Antwerpen, BE</span>
+      <span>Privacy · Voorwaarden · Cookies</span>
+    </div>
+  </footer>
+
+  <script src="site.js"></script>
+  <script>
+    (function () {
+      var FREE_FROM = 200, SHIP = 6.95;
+      var body = document.getElementById('cart-body');
+      var countLabel = document.getElementById('cart-count-label');
+
+      function euro(n) {
+        return '€ ' + n.toLocaleString('nl-BE', { minimumFractionDigits: (n % 1 ? 2 : 0), maximumFractionDigits: 2 });
+      }
+
+      function render() {
+        var items = window.WitCart.get();
+        var count = window.WitCart.count();
+        countLabel.textContent = count === 0 ? '' : count + ' artikel' + (count === 1 ? '' : 'en');
+
+        if (!items.length) {
+          body.innerHTML =
+            '<div class="cart-empty">' +
+            '<p>Je mandje is nog leeg.</p>' +
+            '<a href="shop.html" class="btn">Bekijk de collectie</a>' +
+            '</div>';
+          return;
+        }
+
+        var sub = window.WitCart.subtotal();
+        var ship = sub >= FREE_FROM ? 0 : SHIP;
+        var total = sub + ship;
+        var toFree = Math.max(0, FREE_FROM - sub);
+        var pct = Math.min(100, Math.round(sub / FREE_FROM * 100));
+
+        var rows = items.map(function (it) {
+          return '<div class="cart-row" data-id="' + it.id + '" data-variant="' + it.variant + '">' +
+            '<div class="cart-thumb"><img src="' + it.img + '" alt="' + it.name + '" style="object-position:' + it.imgPos + '" /></div>' +
+            '<div class="cart-info">' +
+              '<h3 class="cart-name">' + it.name + '</h3>' +
+              '<div class="cart-variant">' + (it.variant ? 'Maat ' + it.variant : 'Eén maat') + '</div>' +
+              '<div class="cart-qty">' +
+                '<button data-act="dec" aria-label="Minder">−</button>' +
+                '<span>' + it.qty + '</span>' +
+                '<button data-act="inc" aria-label="Meer">+</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="cart-right">' +
+              '<span class="cart-line-price">' + euro(it.price * it.qty) + '</span>' +
+              '<button class="cart-remove" data-act="remove">Verwijder</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        body.innerHTML =
+          '<div class="cart-grid">' +
+          '<div class="cart-items">' + rows + '</div>' +
+          '<aside class="cart-summary">' +
+            '<h2>Overzicht</h2>' +
+            '<div class="sum-row"><span>Subtotaal</span><span class="v">' + euro(sub) + '</span></div>' +
+            '<div class="sum-row ' + (ship === 0 ? 'free' : '') + '"><span>Verzending</span><span class="v">' + (ship === 0 ? 'Gratis' : euro(ship)) + '</span></div>' +
+            (toFree > 0
+              ? '<div class="cart-progress">Nog ' + euro(toFree) + ' tot gratis verzending</div><div class="cart-bar"><i style="right:' + (100 - pct) + '%"></i></div>'
+              : '<div class="cart-progress">Je komt in aanmerking voor gratis verzending ✓</div>') +
+            '<div class="sum-total"><span class="l">Totaal</span><span class="v">' + euro(total) + '</span></div>' +
+            '<a href="checkout.html" class="btn cart-checkout">Afrekenen →</a>' +
+            '<div class="cart-perks">' +
+              '<span>Gratis retour binnen 30 dagen</span>' +
+              '<span>Veilig betalen — Bancontact, kaart, iDEAL</span>' +
+              '<span>Of kom passen in Gent &amp; Antwerpen</span>' +
+            '</div>' +
+            '<a href="shop.html" class="link-u cart-cont">← Verder winkelen</a>' +
+          '</aside>' +
+          '</div>';
+      }
+
+      body.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-act]');
+        if (!btn) return;
+        var row = btn.closest('.cart-row');
+        var id = row.getAttribute('data-id');
+        var variant = row.getAttribute('data-variant');
+        var act = btn.getAttribute('data-act');
+        var item = window.WitCart.get().filter(function (i) { return i.id === id && (i.variant || '') === variant; })[0];
+        if (!item) return;
+        if (act === 'inc') window.WitCart.setQty(id, variant, item.qty + 1);
+        else if (act === 'dec') window.WitCart.setQty(id, variant, item.qty - 1);
+        else if (act === 'remove') window.WitCart.remove(id, variant);
+      });
+
+      document.addEventListener('wit-cart-change', render);
+      render();
+    })();
+  </script>
+</body>
+</html>

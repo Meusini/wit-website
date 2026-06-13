@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="nl" data-navfont="serif">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bedankt voor je bestelling — Wit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Kalam:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .ty-top {
+      max-width: 1100px; margin: 0 auto;
+      padding: clamp(28px, 3vw, 44px) var(--gutter) 0;
+      text-align: center;
+    }
+    .ty-top img { height: 32px; }
+    .ty {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: clamp(48px, 7vw, 96px) var(--gutter) clamp(80px, 10vw, 140px);
+      text-align: center;
+    }
+    .ty-mark {
+      width: 64px; height: 64px;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 32px;
+      font-size: 26px;
+    }
+    .ty-eyebrow { display: block; margin-bottom: 20px; }
+    .ty h1 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(40px, 6vw, 80px);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin: 0 0 24px;
+    }
+    .ty h1 em { font-family: var(--font-accent); font-style: italic; font-weight: 300; }
+    .ty-lead {
+      font-size: clamp(15px, 1.3vw, 18px);
+      color: var(--ink-70);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 44px;
+    }
+    .ty-card {
+      text-align: left;
+      background: var(--cream);
+      padding: clamp(28px, 4vw, 44px);
+      margin-bottom: 40px;
+    }
+    .ty-ref {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding-bottom: 20px; margin-bottom: 20px;
+      border-bottom: 1px solid var(--ink-12);
+    }
+    .ty-ref .lbl { font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--ls-wide); text-transform: uppercase; color: var(--label); }
+    .ty-ref .ref { font-family: var(--font-display); font-size: 24px; }
+    .ty-item {
+      display: grid; grid-template-columns: 48px 1fr auto; gap: 14px; align-items: center;
+      padding: 10px 0;
+    }
+    .ty-item-thumb { width: 48px; height: 62px; background: var(--surface); overflow: hidden; }
+    .ty-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .ty-item-name { font-family: var(--font-display); font-weight: 500; font-size: 16px; }
+    .ty-item-variant { font-family: var(--font-mono); font-size: 10px; letter-spacing: var(--ls-wide); text-transform: uppercase; color: var(--label); margin-top: 2px; }
+    .ty-item-price { font-size: 13px; white-space: nowrap; }
+    .ty-sums { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--ink-12); }
+    .ty-sum-row { display: flex; justify-content: space-between; font-size: 14px; color: var(--ink-70); padding: 6px 0; }
+    .ty-sum-row .v { color: var(--ink); }
+    .ty-sum-total { display: flex; justify-content: space-between; margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--ink-12); }
+    .ty-sum-total .l { font-family: var(--font-display); font-size: 19px; }
+    .ty-sum-total .v { font-family: var(--font-display); font-size: 24px; }
+    .ty-next {
+      text-align: left;
+      font-size: 14px; color: var(--ink-70); line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .ty-next strong { color: var(--ink); font-weight: 500; }
+    .ty-actions { display: inline-flex; gap: 28px; flex-wrap: wrap; justify-content: center; }
+  </style>
+</head>
+<body>
+  <div class="ty-top"><a href="index.html"><img src="images/wit-logo.png" alt="Wit" /></a></div>
+
+  <main class="ty" data-screen-label="Bedankt">
+    <div class="ty-mark">✓</div>
+    <span class="eyebrow ty-eyebrow">— Bestelling bevestigd</span>
+    <h1>Dankjewel<em>.</em></h1>
+    <p class="ty-lead" id="ty-lead">Je bestelling is geplaatst. We sturen je een bevestiging per e-mail.</p>
+
+    <div class="ty-card" id="ty-card"></div>
+
+    <div class="ty-next" id="ty-next"></div>
+
+    <div class="ty-actions">
+      <a href="shop.html" class="link-u">Verder winkelen →</a>
+      <a href="winkels.html" class="link-u">Onze winkels &amp; uren →</a>
+    </div>
+  </main>
+
+  <script src="site.js"></script>
+  <script>
+    (function () {
+      function euro(n) { return '€ ' + n.toLocaleString('nl-BE', { minimumFractionDigits: (n % 1 ? 2 : 0), maximumFractionDigits: 2 }); }
+      var order;
+      try { order = JSON.parse(sessionStorage.getItem('wit-order')); } catch (e) { order = null; }
+
+      if (!order) {
+        document.getElementById('ty-card').style.display = 'none';
+        document.getElementById('ty-lead').textContent = 'Er is geen recente bestelling gevonden.';
+        document.getElementById('ty-next').innerHTML = '';
+        return;
+      }
+
+      document.getElementById('ty-lead').innerHTML =
+        'Je bestelling is geplaatst. We sturen een bevestiging naar <strong>' + order.email + '</strong>.';
+
+      var rows = order.items.map(function (it) {
+        return '<div class="ty-item">' +
+          '<div class="ty-item-thumb"><img src="' + it.img + '" alt="' + it.name + '" style="object-position:' + it.imgPos + '" /></div>' +
+          '<div><div class="ty-item-name">' + it.name + '</div><div class="ty-item-variant">' + (it.variant ? 'Maat ' + it.variant : 'Eén maat') + ' · ' + it.qty + '×</div></div>' +
+          '<div class="ty-item-price">' + euro(it.price * it.qty) + '</div>' +
+        '</div>';
+      }).join('');
+
+      document.getElementById('ty-card').innerHTML =
+        '<div class="ty-ref"><span class="lbl">Bestelnummer</span><span class="ref">' + order.ref + '</span></div>' +
+        rows +
+        '<div class="ty-sums">' +
+          '<div class="ty-sum-row"><span>Subtotaal</span><span class="v">' + euro(order.subtotal) + '</span></div>' +
+          '<div class="ty-sum-row"><span>Levering</span><span class="v">' + (order.shipping === 0 ? 'Gratis' : euro(order.shipping)) + '</span></div>' +
+          '<div class="ty-sum-total"><span class="l">Totaal</span><span class="v">' + euro(order.total) + '</span></div>' +
+        '</div>';
+
+      var shipMsg = order.ship === 'home'
+        ? 'Je bestelling wordt binnen <strong>2–4 werkdagen</strong> geleverd. Je ontvangt een track &amp; trace zodra het pakje vertrekt.'
+        : 'Je bestelling ligt binnen <strong>2 uur</strong> klaar in onze boetiek in <strong>' + (order.ship === 'gent' ? 'Gent' : 'Antwerpen') + '</strong>. We laten je weten wanneer je kan langskomen.';
+      document.getElementById('ty-next').innerHTML = shipMsg;
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="nl" data-navfont="serif">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Journal — Wit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Kalam:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .jrn-head {
+      padding: clamp(64px, 8vw, 120px) var(--gutter) clamp(48px, 6vw, 96px);
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .jrn-eyebrow { margin-bottom: 28px; display: block; }
+    .jrn-title {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 9vw, 144px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      font-weight: 400;
+      margin: 0 0 32px;
+    }
+    .jrn-title em { font-family: var(--font-accent); font-style: italic; font-weight: 300; }
+    .jrn-sub {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: clamp(18px, 1.6vw, 22px);
+      color: var(--ink-70);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    html[data-type="quiet"] .jrn-sub { font-style: normal; font-family: var(--font-body); }
+
+    /* Categories */
+    .jrn-cats {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      flex-wrap: wrap;
+      padding: 0 var(--gutter) 64px;
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      border-bottom: 0.5px solid var(--ink-12);
+    }
+    .jrn-cats a {
+      color: var(--ink-50);
+      padding-bottom: 16px;
+      border-bottom: 1px solid transparent;
+      margin-bottom: -0.5px;
+    }
+    .jrn-cats a:hover { color: var(--ink); }
+    .jrn-cats a.active {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
+    .jrn-cats a span {
+      color: var(--ink-30);
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 12px;
+      margin-left: 4px;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* Featured */
+    .jrn-feat {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 80px var(--gutter) 120px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: clamp(32px, 4vw, 80px);
+      align-items: center;
+    }
+    .jrn-feat img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      background: var(--cream);
+    }
+    .jrn-feat-text { padding-right: clamp(0px, 3vw, 60px); }
+    .jrn-feat-meta {
+      display: flex; gap: 16px;
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--ink-50);
+      margin-bottom: 20px;
+    }
+    .jrn-feat-meta span:not(:first-child)::before {
+      content: '·'; margin-right: 16px; margin-left: -4px;
+    }
+    .jrn-feat-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4.5vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      font-weight: 400;
+      margin: 0 0 24px;
+      text-wrap: balance;
+    }
+    .jrn-feat-text h2 em { font-family: var(--font-accent); font-style: italic; }
+    .jrn-feat-text p {
+      color: var(--ink-70);
+      font-size: 17px;
+      line-height: 1.6;
+      margin: 0 0 32px;
+      max-width: 500px;
+    }
+    .jrn-author {
+      display: flex; align-items: center; gap: 16px;
+      font-size: 13px;
+      color: var(--ink-70);
+    }
+    .jrn-author-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--cream);
+    }
+
+    /* Index grid */
+    .jrn-grid-wrap {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 var(--gutter) 120px;
+    }
+    .jrn-grid-head {
+      display: flex; justify-content: space-between; align-items: end;
+      padding-bottom: 32px;
+      margin-bottom: 48px;
+      border-bottom: 0.5px solid var(--ink-12);
+    }
+    .jrn-grid-head h3 {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.4vw, 36px);
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: -0.005em;
+    }
+    .jrn-grid-head h3 em { font-family: var(--font-accent); font-style: italic; }
+    .jrn-sort {
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--ink-70);
+    }
+    .jrn-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(32px, 4vw, 64px) clamp(20px, 2.4vw, 40px);
+    }
+    .jrn-card { display: block; }
+    .jrn-card-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      background: var(--cream);
+      margin-bottom: 24px;
+    }
+    .jrn-card-meta {
+      display: flex; gap: 16px;
+      font-size: 10px;
+      letter-spacing: var(--ls-xwide);
+      text-transform: uppercase;
+      color: var(--ink-50);
+      margin-bottom: 12px;
+    }
+    .jrn-card-meta span:not(:first-child)::before {
+      content: '·'; margin-right: 16px; margin-left: -4px;
+    }
+    .jrn-card h4 {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 1.8vw, 26px);
+      line-height: 1.25;
+      letter-spacing: -0.005em;
+      font-weight: 400;
+      margin: 0 0 12px;
+      text-wrap: balance;
+    }
+    .jrn-card p {
+      color: var(--ink-70);
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+      max-width: 360px;
+    }
+
+    /* Editorial spread */
+    .jrn-spread {
+      max-width: 1600px;
+      margin: 0 auto 120px;
+      padding: 0 var(--gutter);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .jrn-spread img {
+      width: 100%;
+      object-fit: cover;
+    }
+    .jrn-spread .left img { aspect-ratio: 3/4; }
+    .jrn-spread .right { display: grid; grid-template-rows: 1fr auto 1fr; gap: 24px; align-items: end; }
+    .jrn-spread .right img { aspect-ratio: 4/3; }
+    .jrn-spread .right .quote {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 2.2vw, 32px);
+      line-height: 1.3;
+      letter-spacing: -0.005em;
+      text-wrap: balance;
+      padding: 24px 0;
+    }
+    .jrn-spread .right .quote em { font-family: var(--font-accent); font-style: italic; }
+    .jrn-spread cite {
+      display: block;
+      font-style: normal;
+      margin-top: 16px;
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--ink-50);
+    }
+
+    @media (max-width: 1024px) {
+      .jrn-feat { grid-template-columns: 1fr; }
+      .jrn-grid { grid-template-columns: 1fr 1fr; }
+      .jrn-spread { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .jrn-grid { grid-template-columns: 1fr; }
+      .jrn-cats { gap: 20px; font-size: 10px; overflow-x: auto; justify-content: flex-start; }
+    }
+  
+    /* ============================================================
+       FULL-SCREEN — edge-to-edge layer (appended last, wins by order)
+       ============================================================ */
+    :root { --gutter: clamp(18px, 2.6vw, 56px); }
+    .jrn-head { max-width: 1180px; }
+    .jrn-feat, .jrn-grid-wrap, .jrn-spread { max-width: none; }
+  </style>
+  <!-- Geo / LocalBusiness structured data (sitewide) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://witthelabel.be/#organization",
+        "name": "Wit",
+        "url": "https://witthelabel.be/",
+        "logo": "https://witthelabel.be/images/wit-logo.png",
+        "email": "hallo@witthelabel.be",
+        "slogan": "Minimaal van vorm, warm van hart.",
+        "areaServed": "BE",
+        "sameAs": [
+          "https://www.instagram.com/witthelabel"
+        ]
+      },
+      {
+        "@type": "ClothingStore",
+        "@id": "https://witthelabel.be/winkels.html#gent",
+        "name": "Wit — Gent",
+        "url": "https://witthelabel.be/winkels.html",
+        "image": "https://witthelabel.be/images/look-11.jpg",
+        "parentOrganization": { "@id": "https://witthelabel.be/#organization" },
+        "telephone": "+32 9 335 66 77",
+        "email": "hallo@witthelabel.be",
+        "priceRange": "€€",
+        "currenciesAccepted": "EUR",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Serpentstraat 15",
+          "postalCode": "9000",
+          "addressLocality": "Gent",
+          "addressCountry": "BE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 51.0507,
+          "longitude": 3.7250
+        },
+        "hasMap": "https://maps.google.com/?q=Serpentstraat+15,+9000+Gent",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "10:00",
+            "closes": "18:00"
+          }
+        ]
+      },
+      {
+        "@type": "ClothingStore",
+        "@id": "https://witthelabel.be/winkels.html#antwerpen",
+        "name": "Wit — Antwerpen",
+        "url": "https://witthelabel.be/winkels.html",
+        "image": "https://witthelabel.be/images/look-09.jpg",
+        "parentOrganization": { "@id": "https://witthelabel.be/#organization" },
+        "telephone": "+32 3 222 00 44",
+        "email": "hallo@witthelabel.be",
+        "priceRange": "€€",
+        "currenciesAccepted": "EUR",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Leopoldstraat 8",
+          "postalCode": "2000",
+          "addressLocality": "Antwerpen",
+          "addressCountry": "BE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 51.2120,
+          "longitude": 4.4020
+        },
+        "hasMap": "https://maps.google.com/?q=Leopoldstraat+8,+2000+Antwerpen",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "11:00",
+            "closes": "18:30"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <header class="header" data-screen-label="Header">
+    <div class="announce"><span>Binnenlopen zonder afspraak · Gent &amp; Antwerpen · Vandaag mee naar huis</span></div>
+    <nav class="nav">
+      <div class="nav-left">
+        <div class="nav-dd">
+          <a href="shop.html">Shop</a>
+          <div class="nav-dd-menu">
+            <a href="shop.html" class="nav-dd-all">Alle stuks</a>
+            <div class="nav-dd-sep"></div>
+            <a href="shop.html?cat=jurken">Jurken</a>
+            <a href="shop.html?cat=rokken">Rokken &amp; broeken</a>
+            <a href="shop.html?cat=tops">Tops &amp; bloezen</a>
+            <a href="shop.html?cat=sets">Tweedelig</a>
+            <a href="shop.html?cat=accessoires">Accessoires</a>
+          </div>
+        </div>
+        <a href="looks.html">Shop the look</a>
+        <a href="journal.html" style="color:var(--ink);font-weight:500">Journal</a>
+        <a href="over-wit.html">Over Wit</a>
+      </div>
+      <a href="index.html" class="brand"><img src="images/wit-logo.png" alt="Wit" /></a>
+      <div class="nav-right">
+        <a href="winkels.html">Winkels</a>
+        <a href="bruiden.html">Onze bruiden</a>
+        <a href="mandje.html" class="nav-cart" data-count="0" aria-label="Tas — 0 artikelen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5.5 8h13l-0.8 11.5a1 1 0 0 1-1 0.9H7.3a1 1 0 0 1-1-0.9L5.5 8z"/>
+            <path d="M9 8.5V6.5a3 3 0 0 1 6 0v2"/>
+          </svg>
+          <span class="nav-cart-count">0</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ Head ============ -->
+  <section class="jrn-head" data-screen-label="Title">
+    <span class="eyebrow jrn-eyebrow">— Sinds 2019 · 86 artikels</span>
+    <h1 class="jrn-title">De <em>journal</em>.</h1>
+    <p class="jrn-sub">Notities uit het atelier — over herdraagbare bruidsmode, de vrouwen die ze dragen, en het trage proces achter een stuk witte stof.</p>
+  </section>
+
+  <!-- ============ Categories ============ -->
+  <nav class="jrn-cats" data-screen-label="Categories">
+    <a href="#" class="active">Alles <span>86</span></a>
+    <a href="#">Atelier <span>22</span></a>
+    <a href="#">Echte bruiden <span>34</span></a>
+    <a href="#">Proces <span>12</span></a>
+    <a href="#">Gesprekken <span>09</span></a>
+    <a href="#">Onderhoud <span>06</span></a>
+    <a href="#">In druk <span>03</span></a>
+  </nav>
+
+  <!-- ============ Featured article ============ -->
+  <section class="jrn-feat" data-screen-label="Featured">
+    <img src="images/look-07.jpg" alt="Featured article image" />
+    <div class="jrn-feat-text">
+      <div class="jrn-feat-meta">
+        <span>Atelier</span><span>14 mei 2026</span><span>04 min</span>
+      </div>
+      <h2>Waarom we niet meer over <em>"tweede looks"</em> praten.</h2>
+      <p>Jarenlang was de tweede jurk de feestjurk — een kleinere, lichtere versie van de ceremoniejurk. Wij maakten er nooit een. Over herdraagbare bruidsmode, wat de term fout heeft, en wat wij in de plaats maken.</p>
+      <a href="article.html" class="btn">Lees het artikel →</a>
+      <div class="jrn-author" style="margin-top:32px">
+        <span class="jrn-author-dot"></span>
+        <span>Door <strong style="color:var(--ink);font-weight:500">Charlotte Sikkema</strong> · oprichter, Wit</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Editorial spread ============ -->
+  <section class="jrn-spread" data-screen-label="Spread">
+    <div class="left">
+      <img src="images/look-11.jpg" alt="Atelier moment 1" />
+    </div>
+    <div class="right">
+      <img src="images/look-12.jpg" alt="Atelier moment 2" />
+      <blockquote class="quote">
+        "Een witte jurk is een stuk stof. Het wordt pas een trouwjurk op de ochtend <em>dat jij beslist dat het er een is</em>."
+        <cite>— uit een brief aan een klant, maart 2026</cite>
+      </blockquote>
+      <img src="images/look-03.jpg" alt="Atelier moment 3" />
+    </div>
+  </section>
+
+  <!-- ============ Article grid ============ -->
+  <section class="jrn-grid-wrap" data-screen-label="Grid">
+    <div class="jrn-grid-head">
+      <h3>Alle <em>artikels</em></h3>
+      <div class="jrn-sort">Gesorteerd op — Nieuwste eerst</div>
+    </div>
+
+    <div class="jrn-grid">
+      <a href="article.html" class="jrn-card">
+        <img class="jrn-card-img" src="images/look-03.jpg" alt="" />
+        <div class="jrn-card-meta"><span>Echte bruiden</span><span>06 min</span></div>
+        <h4>Anouk &amp; Pieter, getrouwd in Gent, in de Nora-knit.</h4>
+        <p>Een ceremonie op het stadhuis, een laagje kasjmier, en een lunch die uitliep tot vijf uur.</p>
+      </a>
+
+      <a href="article.html" class="jrn-card">
+        <img class="jrn-card-img" src="images/look-09.jpg" alt="" />
+        <div class="jrn-card-meta"><span>Proces</span><span>08 min</span></div>
+        <h4>De knoopjes achteraan het Lou-vest, uitgelegd.</h4>
+        <p>Drie omhulde knoopjes, twee gram gewicht, met de hand gezet door Mara in Porto.</p>
+      </a>
+
+      <a href="article.html" class="jrn-card">
+        <img class="jrn-card-img" src="images/look-08.jpg" alt="" />
+        <div class="jrn-card-meta"><span>Gesprekken</span><span>11 min</span></div>
+        <h4>Een middag met Eline van der Velde, over de moderne bruid aankleden.</h4>
+        <p>De styliste achter de Lente '26-campagne over bruiden zichzelf laten zijn.</p>
+      </a>
+
+      <a href="article.html" class="jrn-card">
+        <img class="jrn-card-img" src="images/look-01.jpg" alt="" />
+        <div class="jrn-card-meta"><span>Onderhoud</span><span>03 min</span></div>
+        <h4>Hoe je een crêpe-jurk vouwt (en niet strijkt).</h4>
+        <p>De ochtendroutine van vijf minuten die een Wit-stuk ongedragen houdt.</p>
+      </a>
+
+      <a href="article.html" class="jrn-card">
+        <img class="jrn-card-img" src="images/look-10.jpg" alt="" />
+        <div class="jrn-card-meta"><span>Atelier</span><span>05 min</span></div>
+        <h4>Waarom we maar negen stuks per seizoen maken.</h4>
+        <p>Over selectie, ingetogenheid, en het verschil tussen een collectie en een catalogus.</p>
+      </a>
+
+      <a href="article.html" class="jrn-card">
+        <img class="jrn-card-img" src="images/look-02.jpg" alt="" />
+        <div class="jrn-card-meta"><span>Echte bruiden</span><span>07 min</span></div>
+        <h4>Sigrid, getrouwd in een knit, bij haar grootmoeder thuis.</h4>
+        <p>"De knit 's ochtends, het vest in de namiddag, en 's avonds opnieuw de knit."</p>
+      </a>
+
+      <a href="article.html" class="jrn-card">
+        <img class="jrn-card-img" src="images/look-05.jpg" alt="" />
+        <div class="jrn-card-meta"><span>In druk</span><span>02 min</span></div>
+        <h4>Wit in Vogue Scandinavia, mei 2026.</h4>
+        <p>De Lou set, gefotografeerd door Hanna Tveite voor het bruidsspecial.</p>
+      </a>
+
+      <a href="article.html" class="jrn-card">
+        <img class="jrn-card-img" src="images/look-04.jpg" alt="" />
+        <div class="jrn-card-meta"><span>Proces</span><span>09 min</span></div>
+        <h4>Van de rol: waar onze crêpe geweven wordt.</h4>
+        <p>Een ochtend bij Tessitura Roma, de familieweverij in Como die ons sinds 2021 levert.</p>
+      </a>
+
+      <a href="article.html" class="jrn-card">
+        <img class="jrn-card-img" src="images/look-06.jpg" alt="" />
+        <div class="jrn-card-meta"><span>Atelier</span><span>04 min</span></div>
+        <h4>Een eerste paskwartier, stap voor stap.</h4>
+        <p>Wat je meebrengt, wat je mag verwachten, en wat we je vragen wanneer je langskomt.</p>
+      </a>
+    </div>
+
+    <div style="text-align:center;margin-top:80px">
+      <button class="btn btn-ghost">Meer artikels laden</button>
+    </div>
+  </section>
+
+  <footer class="footer" data-screen-label="Footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="images/wit-logo.png" alt="Wit" /></div>
+        <p class="footer-tag">Minimaal van vorm, warm van hart.</p>
+        <p class="footer-addr">Serpentstraat 15, 9000 Gent<br/>Leopoldstraat 8, 2000 Antwerpen<br/>hallo@witthelabel.be</p>
+      </div>
+      <div class="footer-col"><h4>Shop</h4><ul>
+        <li><a href="shop.html">Alle stuks</a></li><li><a href="shop.html">Ceremonie</a></li>
+        <li><a href="shop.html">Feest</a></li><li><a href="shop.html">Separates</a></li>
+        <li><a href="shop.html">Accessoires</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Atelier</h4><ul>
+        <li><a href="winkels.html">Onze winkels</a></li><li><a href="#">Op maat</a></li>
+        <li><a href="maatgids.html">Maat &amp; fit</a></li><li><a href="#">Onderhoud</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Het huis</h4><ul>
+        <li><a href="over-wit.html">Ons verhaal</a></li><li><a href="journal.html">Journal</a></li>
+        <li><a href="#">Duurzaamheid</a></li><li><a href="winkels.html">Verkooppunten</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Help</h4><ul>
+        <li><a href="verzending.html">Verzending</a></li><li><a href="retour.html">Retour</a></li>
+        <li><a href="winkels.html#contact">Contact</a></li><li><a href="faq.html">FAQ</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Wit · Gent &amp; Antwerpen, BE</span>
+      <span>Privacy · Voorwaarden · Cookies</span>
+    </div>
+  </footer>
+
+  <script src="site.js"></script>
+</body>
+</html>

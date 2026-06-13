@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="nl" data-navfont="serif">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Onze bruiden — Wit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Kalam:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ============ Head ============ */
+    .brd-head {
+      padding: clamp(64px, 8vw, 120px) var(--gutter) clamp(40px, 5vw, 72px);
+      max-width: 1080px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .brd-eyebrow { display: block; margin-bottom: 28px; }
+    .brd-title {
+      font-family: var(--font-display);
+      font-size: clamp(52px, 8.5vw, 132px);
+      line-height: 0.95;
+      letter-spacing: 0.005em;
+      font-weight: var(--display-weight);
+      margin: 0 0 32px;
+    }
+    .brd-title em { font-family: var(--font-accent); font-style: italic; font-weight: var(--display-weight); }
+    .brd-sub {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: clamp(18px, 1.6vw, 23px);
+      color: var(--ink-70);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* ============ Lead quote ============ */
+    .brd-lead {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: clamp(32px, 4vw, 56px) var(--gutter) clamp(48px, 6vw, 88px);
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      gap: clamp(40px, 6vw, 110px);
+      align-items: stretch;
+    }
+    .brd-lead-media { position: relative; }
+    .brd-lead-media image-slot {
+      display: block; width: 100%;
+      height: 100%;
+      background: var(--cream);
+    }
+    .brd-lead-tag {
+      position: absolute; left: 18px; top: -16px;
+      font-family: var(--font-hand);
+      color: var(--ink);
+      font-size: clamp(24px, 2.2vw, 38px);
+      line-height: 1; z-index: 3;
+      transform: rotate(-4deg);
+      pointer-events: none;
+    }
+    .brd-lead-quote p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: var(--display-weight);
+      font-size: clamp(28px, 3.4vw, 52px);
+      line-height: 1.24;
+      letter-spacing: 0.005em;
+      color: var(--ink);
+      margin: 0 0 28px;
+      text-wrap: balance;
+    }
+    .brd-lead-quote cite {
+      font-family: var(--font-mono);
+      font-style: normal;
+      font-size: 12px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+    }
+
+    /* ============ Gallery ============ */
+    .brd-gallery {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 0 var(--gutter) clamp(56px, 7vw, 110px);
+    }
+    .brd-gallery-head {
+      display: flex; align-items: end; justify-content: space-between;
+      gap: 32px;
+      padding-bottom: clamp(28px, 3vw, 40px);
+      margin-bottom: clamp(36px, 4vw, 56px);
+      border-bottom: 1px solid var(--line);
+    }
+    .brd-gallery-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: var(--display-weight);
+      letter-spacing: 0.005em;
+      margin: 0;
+    }
+    .brd-gallery-head h2 em { font-family: var(--font-accent); font-style: italic; }
+    .brd-gallery-count {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+      white-space: nowrap;
+    }
+    .brd-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(20px, 2.4vw, 40px) clamp(16px, 2vw, 32px);
+    }
+    .bride { margin: 0; }
+    .bride image-slot {
+      display: block; width: 100%;
+      height: auto;
+      aspect-ratio: 4/5;
+      background: var(--cream);
+      margin-bottom: 16px;
+    }
+    .bride figcaption { display: flex; flex-direction: column; gap: 5px; }
+    .bride-name {
+      font-family: var(--font-display);
+      font-weight: var(--display-weight);
+      font-size: 20px;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+    }
+    .bride-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+    }
+
+    /* ============ Quote band ============ */
+    .brd-quotes {
+      background: var(--cream);
+      padding: clamp(72px, 9vw, 130px) var(--gutter);
+    }
+    .brd-quotes-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(40px, 5vw, 80px);
+    }
+    .brd-quote blockquote {
+      margin: 0;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: var(--display-weight);
+      font-size: clamp(21px, 1.9vw, 27px);
+      line-height: 1.4;
+      color: var(--ink);
+      text-wrap: pretty;
+    }
+    .brd-quote-mark {
+      font-family: var(--font-display);
+      font-size: 56px;
+      line-height: 0.4;
+      color: var(--sand);
+      display: block;
+      margin-bottom: 18px;
+      height: 28px;
+    }
+    .brd-quote cite {
+      display: block;
+      margin-top: 22px;
+      font-family: var(--font-mono);
+      font-style: normal;
+      font-size: 11px;
+      letter-spacing: var(--ls-wide);
+      text-transform: uppercase;
+      color: var(--label);
+    }
+
+    /* ============ Share CTA ============ */
+    .brd-share {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: clamp(72px, 9vw, 130px) var(--gutter);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 40px;
+    }
+    .brd-share h2 {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 4.4vw, 64px);
+      font-weight: var(--display-weight);
+      letter-spacing: 0.005em;
+      line-height: 1.04;
+      margin: 0 0 20px;
+      max-width: 760px;
+      text-wrap: balance;
+    }
+    .brd-share h2 em { font-family: var(--font-accent); font-style: italic; }
+    .brd-share p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--ink-70);
+      max-width: 460px;
+      margin: 0;
+    }
+    .brd-share-aside {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      line-height: 2;
+      color: var(--ink-70);
+    }
+    .brd-share-aside .handle {
+      font-family: var(--font-hand);
+      font-size: 28px;
+      color: var(--accent);
+      letter-spacing: 0;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .brd-share-aside a { border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+    .brd-share-aside a:hover { color: var(--accent); border-color: var(--accent); }
+
+    @media (max-width: 1024px) {
+      .brd-grid { grid-template-columns: repeat(3, 1fr); }
+      .brd-quotes-inner { grid-template-columns: 1fr; gap: clamp(36px, 6vw, 56px); max-width: 640px; }
+    }
+    @media (max-width: 760px) {
+      .brd-lead { grid-template-columns: 1fr; gap: 36px; }
+      .brd-lead-media { order: 2; }
+      .brd-grid { grid-template-columns: repeat(2, 1fr); }
+      .brd-share { grid-template-columns: 1fr; align-items: start; }
+      .brd-share-aside { text-align: left; }
+    }
+  
+    /* ============================================================
+       FULL-SCREEN — edge-to-edge layer (appended last, wins by order)
+       ============================================================ */
+    :root { --gutter: clamp(18px, 2.6vw, 56px); }
+    .brd-head { max-width: 1180px; }
+    .brd-lead, .brd-gallery, .brd-share { max-width: none; }
+  </style>
+  <!-- Geo / LocalBusiness structured data (sitewide) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://witthelabel.be/#organization",
+        "name": "Wit",
+        "url": "https://witthelabel.be/",
+        "logo": "https://witthelabel.be/images/wit-logo.png",
+        "email": "hallo@witthelabel.be",
+        "slogan": "Minimaal van vorm, warm van hart.",
+        "areaServed": "BE",
+        "sameAs": [
+          "https://www.instagram.com/witthelabel"
+        ]
+      },
+      {
+        "@type": "ClothingStore",
+        "@id": "https://witthelabel.be/winkels.html#gent",
+        "name": "Wit — Gent",
+        "url": "https://witthelabel.be/winkels.html",
+        "image": "https://witthelabel.be/images/look-11.jpg",
+        "parentOrganization": { "@id": "https://witthelabel.be/#organization" },
+        "telephone": "+32 9 335 66 77",
+        "email": "hallo@witthelabel.be",
+        "priceRange": "€€",
+        "currenciesAccepted": "EUR",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Serpentstraat 15",
+          "postalCode": "9000",
+          "addressLocality": "Gent",
+          "addressCountry": "BE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 51.0507,
+          "longitude": 3.7250
+        },
+        "hasMap": "https://maps.google.com/?q=Serpentstraat+15,+9000+Gent",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "10:00",
+            "closes": "18:00"
+          }
+        ]
+      },
+      {
+        "@type": "ClothingStore",
+        "@id": "https://witthelabel.be/winkels.html#antwerpen",
+        "name": "Wit — Antwerpen",
+        "url": "https://witthelabel.be/winkels.html",
+        "image": "https://witthelabel.be/images/look-09.jpg",
+        "parentOrganization": { "@id": "https://witthelabel.be/#organization" },
+        "telephone": "+32 3 222 00 44",
+        "email": "hallo@witthelabel.be",
+        "priceRange": "€€",
+        "currenciesAccepted": "EUR",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Leopoldstraat 8",
+          "postalCode": "2000",
+          "addressLocality": "Antwerpen",
+          "addressCountry": "BE"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 51.2120,
+          "longitude": 4.4020
+        },
+        "hasMap": "https://maps.google.com/?q=Leopoldstraat+8,+2000+Antwerpen",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "11:00",
+            "closes": "18:30"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ============ Header ============ -->
+  <header class="header" data-screen-label="Header">
+    <div class="announce"><span>Binnenlopen zonder afspraak · Gent &amp; Antwerpen · Vandaag mee naar huis</span></div>
+    <nav class="nav">
+      <div class="nav-left">
+        <div class="nav-dd">
+          <a href="shop.html">Shop</a>
+          <div class="nav-dd-menu">
+            <a href="shop.html" class="nav-dd-all">Alle stuks</a>
+            <div class="nav-dd-sep"></div>
+            <a href="shop.html?cat=jurken">Jurken</a>
+            <a href="shop.html?cat=rokken">Rokken &amp; broeken</a>
+            <a href="shop.html?cat=tops">Tops &amp; bloezen</a>
+            <a href="shop.html?cat=sets">Tweedelig</a>
+            <a href="shop.html?cat=accessoires">Accessoires</a>
+          </div>
+        </div>
+        <a href="looks.html">Shop the look</a>
+        <a href="journal.html">Journal</a>
+        <a href="over-wit.html">Over Wit</a>
+      </div>
+      <a href="index.html" class="brand"><img src="images/wit-logo.png" alt="Wit" /></a>
+      <div class="nav-right">
+        <a href="winkels.html">Winkels</a>
+        <a href="bruiden.html" style="color:var(--ink);font-weight:500">Onze bruiden</a>
+        <a href="mandje.html" class="nav-cart" data-count="0" aria-label="Tas — 0 artikelen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5.5 8h13l-0.8 11.5a1 1 0 0 1-1 0.9H7.3a1 1 0 0 1-1-0.9L5.5 8z"/>
+            <path d="M9 8.5V6.5a3 3 0 0 1 6 0v2"/>
+          </svg>
+          <span class="nav-cart-count">0</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ Head ============ -->
+  <section class="brd-head" data-screen-label="Title">
+    <span class="eyebrow brd-eyebrow">— Echte bruiden · echt gedragen</span>
+    <h1 class="brd-title">Onze <em>bruiden</em>.</h1>
+    <p class="brd-sub">Niet onze modellen — onze klanten. De vrouwen die in Wit trouwden, en die hun stuk daarna gewoon bleven dragen.</p>
+  </section>
+
+  <!-- ============ Lead quote ============ -->
+  <section class="brd-lead" data-screen-label="Uitgelicht">
+    <div class="brd-lead-media">
+      <span class="brd-lead-tag">echt waar</span>
+      <image-slot id="brd-lead" shape="rect" src="images/look-03.jpg" placeholder="Sleep een foto van een bruid"></image-slot>
+    </div>
+    <div class="brd-lead-quote">
+      <p>"Ik wou een jurk die ik nadien nog zou dragen. Nu zit hij niet in een doos op zolder — hij hangt gewoon in mijn kast."</p>
+      <cite>— Marie, getrouwd in Antwerpen · het Lou-vest</cite>
+    </div>
+  </section>
+
+  <!-- ============ Gallery ============ -->
+  <section class="brd-gallery" data-screen-label="Galerij">
+    <div class="brd-gallery-head">
+      <h2>In hun eigen <em>Wit</em></h2>
+      <span class="brd-gallery-count">Acht bruiden · 2024 — 2026</span>
+    </div>
+    <div class="brd-grid">
+      <figure class="bride">
+        <image-slot id="brd-01" shape="rect" src="images/look-01.jpg" placeholder="Sleep een foto van een bruid"></image-slot>
+        <figcaption><span class="bride-name">Anouk</span><span class="bride-meta">Gent · de Nora-knit</span></figcaption>
+      </figure>
+      <figure class="bride">
+        <image-slot id="brd-02" shape="rect" src="images/look-02.jpg" placeholder="Sleep een foto van een bruid"></image-slot>
+        <figcaption><span class="bride-name">Sofie</span><span class="bride-meta">Brugge · de Maan-jurk</span></figcaption>
+      </figure>
+      <figure class="bride">
+        <image-slot id="brd-03" shape="rect" src="images/look-06.jpg" placeholder="Sleep een foto van een bruid"></image-slot>
+        <figcaption><span class="bride-name">Lotte</span><span class="bride-meta">Leuven · de Juni-set</span></figcaption>
+      </figure>
+      <figure class="bride">
+        <image-slot id="brd-04" shape="rect" src="images/look-08.jpg" placeholder="Sleep een foto van een bruid"></image-slot>
+        <figcaption><span class="bride-name">Elise</span><span class="bride-meta">Gent · het Lou-vest</span></figcaption>
+      </figure>
+      <figure class="bride">
+        <image-slot id="brd-05" shape="rect" src="images/look-10.jpg" placeholder="Sleep een foto van een bruid"></image-slot>
+        <figcaption><span class="bride-name">Hannah</span><span class="bride-meta">Mechelen · het Vij-pak</span></figcaption>
+      </figure>
+      <figure class="bride">
+        <image-slot id="brd-06" shape="rect" src="images/look-12.jpg" placeholder="Sleep een foto van een bruid"></image-slot>
+        <figcaption><span class="bride-name">Camille</span><span class="bride-meta">Antwerpen · de Lou-jurk</span></figcaption>
+      </figure>
+      <figure class="bride">
+        <image-slot id="brd-07" shape="rect" src="images/look-07.jpg" placeholder="Sleep een foto van een bruid"></image-slot>
+        <figcaption><span class="bride-name">Febe</span><span class="bride-meta">Kortrijk · de Maan-set</span></figcaption>
+      </figure>
+      <figure class="bride">
+        <image-slot id="brd-08" shape="rect" src="images/look-11.jpg" placeholder="Sleep een foto van een bruid"></image-slot>
+        <figcaption><span class="bride-name">Noor</span><span class="bride-meta">Antwerpen · de Nora-jurk</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ Quote band ============ -->
+  <section class="brd-quotes" data-screen-label="In hun woorden">
+    <div class="brd-quotes-inner">
+      <div class="brd-quote">
+        <span class="brd-quote-mark">&ldquo;</span>
+        <blockquote>Geen afspraak, geen stress. Ik liep binnen in Gent, paste drie stuks, en wist het meteen.</blockquote>
+        <cite>Anouk · Gent</cite>
+      </div>
+      <div class="brd-quote">
+        <span class="brd-quote-mark">&ldquo;</span>
+        <blockquote>Mijn moeder huilde, ik niet — ik voelde me gewoon mezelf, en dat was precies de bedoeling.</blockquote>
+        <cite>Sofie · Brugge</cite>
+      </div>
+      <div class="brd-quote">
+        <span class="brd-quote-mark">&ldquo;</span>
+        <blockquote>Ik droeg het vest op het stadhuis, en sindsdien naar elk feest. Beste aankoop, niet alleen voor één dag.</blockquote>
+        <cite>Elise · Gent</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Share CTA ============ -->
+  <section class="brd-share" data-screen-label="Deel je foto">
+    <div>
+      <h2>Trouwde je in Wit? <em>Laat het ons zien.</em></h2>
+      <p>We delen onze favoriete bruiden hier en op Instagram. Tag je foto of stuur ze ons — met jouw toestemming, altijd.</p>
+    </div>
+    <div class="brd-share-aside">
+      <span class="handle">#wit.bruiden</span>
+      <a href="mailto:hallo@witthelabel.be">hallo@witthelabel.be</a><br/>
+      @wit.thelabel
+    </div>
+  </section>
+
+  <!-- ============ Footer ============ -->
+  <footer class="footer" data-screen-label="Footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="images/wit-logo.png" alt="Wit" /></div>
+        <p class="footer-tag">Minimaal van vorm, warm van hart.</p>
+        <p class="footer-addr">Serpentstraat 15, 9000 Gent<br/>Leopoldstraat 8, 2000 Antwerpen<br/>hallo@witthelabel.be</p>
+      </div>
+      <div class="footer-col"><h4>Shop</h4><ul>
+        <li><a href="shop.html">Alle stuks</a></li><li><a href="shop.html">Ceremonie</a></li>
+        <li><a href="shop.html">Feest</a></li><li><a href="shop.html">Separates</a></li>
+        <li><a href="shop.html">Accessoires</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Atelier</h4><ul>
+        <li><a href="winkels.html">Onze winkels</a></li><li><a href="#">Op maat</a></li>
+        <li><a href="maatgids.html">Maat &amp; fit</a></li><li><a href="#">Onderhoud</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Het huis</h4><ul>
+        <li><a href="over-wit.html">Ons verhaal</a></li><li><a href="journal.html">Journal</a></li>
+        <li><a href="bruiden.html">Onze bruiden</a></li><li><a href="winkels.html">Verkooppunten</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Help</h4><ul>
+        <li><a href="verzending.html">Verzending</a></li><li><a href="retour.html">Retour</a></li>
+        <li><a href="winkels.html#contact">Contact</a></li><li><a href="faq.html">FAQ</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Wit · Gent &amp; Antwerpen, BE</span>
+      <span>Privacy · Voorwaarden · Cookies</span>
+    </div>
+  </footer>
+
+  <script src="image-slot.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>
