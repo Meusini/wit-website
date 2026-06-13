@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wit — Visuele parity · ontwerp vs Shopify v1.1</title>
+<style>
+  :root{
+    --bg:#faf8f4;--surface:#fff;--ink:#1a1a18;--ink70:rgba(26,26,24,.72);--ink50:rgba(26,26,24,.52);
+    --line:#e2dbd0;--sand:#b89b7a;--div:#b23b3b;--match:#4a7c59;--minor:#c2772e;
+    --serif:"Cormorant Garamond",Georgia,serif;--sans:"Jost",system-ui,sans-serif;--mono:"Courier Prime",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6}
+  a{color:var(--ink)}
+  .wrap{max-width:1180px;margin:0 auto;padding:clamp(32px,5vw,72px) clamp(20px,4vw,56px) 120px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink50)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,6vw,64px);line-height:1;letter-spacing:-.02em;margin:14px 0 10px}
+  h1 em{font-style:italic;font-weight:400}
+  .lede{max-width:780px;color:var(--ink70);font-size:16px}
+  .verdict{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--match);padding:20px 24px;margin:28px 0;font-size:15px}
+  .verdict strong{font-weight:500}
+  .nav{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:18px 0 0}
+  .nav a{color:var(--sand)}
+  .badge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;border-radius:999px;color:#fff}
+  .b-div{background:var(--div)} .b-match{background:var(--match)} .b-minor{background:var(--minor)} .b-fixed{background:#3f6f4d}
+  .cmp{background:var(--surface);border:1px solid var(--line);margin:30px 0;padding:24px}
+  .cmp .ttl{display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;margin-bottom:6px}
+  .cmp h2{font-family:var(--serif);font-weight:500;font-size:27px;margin:0;letter-spacing:-.01em}
+  .cmp .where{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink50)}
+  .cmp p.note{color:var(--ink70);font-size:15px;margin:8px 0 20px;max-width:900px}
+  .cmp p.note code{font-family:var(--mono);font-size:12.5px;background:#f0ece4;padding:1px 5px}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.pair{grid-template-columns:1fr}}
+  figure{margin:0;border:1px solid var(--line);background:#f0ece4}
+  figure .lab{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink50);padding:8px 10px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+  figure .lab .ok{color:var(--match)} figure .lab .no{color:var(--div)}
+  figure a{display:block} figure img{display:block;width:100%;height:auto}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+  footer{margin-top:70px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink50)}
+</style>
+</head>
+<body><div class="wrap">
+
+<div class="eyebrow">Visuele parity-check · ontwerp (meusini.github.io/wit-website) vs Shopify-draft v1.1</div>
+<h1>Visueel: wat wijkt af <em>van het ontwerp</em>.</h1>
+<p class="lede">Beide naast elkaar gerenderd op exact dezelfde breedte, zodat content-verschillen (echte vs demo-producten) wegvallen en enkel <strong>echte visuele/layout-afwijkingen</strong> overblijven. Klik een beeld om te vergroten.</p>
+<p class="nav">Zie ook: <a href="index.html">het volledige QA-rapport (content/config/links)</a></p>
+
+<div class="verdict">
+  <strong>Conclusie:</strong> het thema is een <strong>getrouwe visuele reproductie</strong> van het ontwerp — hero, productpagina, typografie, kleuren en de homepage-secties komen overeen. Er is <strong>één belangrijke visuele afwijking</strong>: de <strong>collectiepagina op brede schermen</strong> (niet full-bleed) plus het <strong>strandende campagne-blok</strong>. Beide heb ik al opgelost in <strong>v1.2</strong>. Daarnaast één klein verschil in grid-tussenruimte.
+</div>
+
+<div class="legend">
+  <span class="badge b-div">Afwijking</span>
+  <span class="badge b-fixed">Al opgelost · v1.2</span>
+  <span class="badge b-minor">Klein verschil</span>
+  <span class="badge b-match">Komt overeen</span>
+</div>
+
+<!-- 1 -->
+<div class="cmp">
+  <div class="ttl"><h2>Collectie op breed scherm</h2><span class="where">2560&nbsp;px · /collections/jurken vs /shop</span><span class="badge b-div">Afwijking</span><span class="badge b-fixed">Opgelost v1.2</span></div>
+  <p class="note"><strong>Dé visuele afwijking.</strong> In het ontwerp loopt het productgrid <strong>full-bleed</strong> — 4 grote producten van rand tot rand. In Shopify v1.1 wordt de hele collectie (chips, filters, grid, campagne) in een <strong>gecentreerde kolom van ~1400&nbsp;px</strong> geperst, met ~580&nbsp;px lege ruimte aan élke kant. Op jouw 4K-scherm oogt dat smal en leeg. Oorzaak: een gedeelde <code>max-width:1400px</code>-wrapper. <strong>Opgelost in v1.2</strong> (full-bleed + 5/6 kolommen op brede schermen).</p>
+  <div class="pair">
+    <figure><div class="lab"><span>Ontwerp</span><span class="ok">full-bleed ✓</span></div><a href="images/d_shop_wide.png" target="_blank"><img src="images/d_shop_wide.png" alt="Ontwerp collectie breed"></a></figure>
+    <figure><div class="lab"><span>Shopify v1.1</span><span class="no">smal, gecentreerd ✗</span></div><a href="images/s_shop_wide.png" target="_blank"><img src="images/s_shop_wide.png" alt="Shopify collectie breed"></a></figure>
+  </div>
+</div>
+
+<!-- 2 -->
+<div class="cmp">
+  <div class="ttl"><h2>Collectie — campagne strandt een product</h2><span class="where">1440&nbsp;px</span><span class="badge b-div">Afwijking</span><span class="badge b-fixed">Opgelost v1.2</span><span class="badge b-minor">+ grid-ruimte</span></div>
+  <p class="note">Het ontwerp toont nette rijen van 4 producten. In Shopify wordt het campagnebeeld ná product&nbsp;3 ingevoegd, waardoor op een kleine collectie (Jurken: 4 stuks) de eerste rij <strong>3 producten + een leeg vakje</strong> heeft en het 4de product (Flo) <strong>alleen onder de campagne</strong> belandt → oogt onaf. <strong>Opgelost in v1.2</strong> (editoriale blokken niet meer standaard). <br><span style="color:var(--minor)">Klein verschil (bron-geverifieerd, nog niet aangepast):</span> de verticale tussenruimte tussen productrijen is in het thema krapper dan in het ontwerp (row-gap ~20–32&nbsp;px vs ~40–64&nbsp;px).</p>
+  <div class="pair">
+    <figure><div class="lab"><span>Ontwerp</span><span class="ok">4-op-een-rij ✓</span></div><a href="images/d_shop.png" target="_blank"><img src="images/d_shop.png" alt="Ontwerp collectie 1440"></a></figure>
+    <figure><div class="lab"><span>Shopify v1.1</span><span class="no">leeg vak + los product ✗</span></div><a href="images/s_shop.png" target="_blank"><img src="images/s_shop.png" alt="Shopify collectie 1440"></a></figure>
+  </div>
+</div>
+
+<!-- 3 -->
+<div class="cmp">
+  <div class="ttl"><h2>Hero (homepage)</h2><span class="where">1440&nbsp;×&nbsp;900&nbsp;px</span><span class="badge b-match">Komt overeen</span></div>
+  <p class="note">Full-bleed beeld, kop "Iets om in te blijven leven." linksonder, lead + teller rechtsonder, knoppen — <strong>identiek</strong>. (Enkel een minieme uitsnede van het demobeeld verschilt.) Geen visueel probleem.</p>
+  <div class="pair">
+    <figure><div class="lab"><span>Ontwerp</span><span class="ok">✓</span></div><a href="images/d_hero.png" target="_blank"><img src="images/d_hero.png" alt="Ontwerp hero"></a></figure>
+    <figure><div class="lab"><span>Shopify v1.1</span><span class="ok">✓</span></div><a href="images/s_hero.png" target="_blank"><img src="images/s_hero.png" alt="Shopify hero"></a></figure>
+  </div>
+</div>
+
+<!-- 4 -->
+<div class="cmp">
+  <div class="ttl"><h2>Productpagina</h2><span class="where">1440&nbsp;px · /products/iris vs /product</span><span class="badge b-match">Komt overeen</span></div>
+  <p class="note">Galerij-layout (2 kolommen + één breed beeld), sticky info-kolom, maten, "In de tas", accordeons, "Maak de look af" — <strong>structureel gelijk</strong>. De zichtbare verschillen zijn <em>content</em>, geen design: het demoproduct had kleurstalen (Ivoor/Optisch wit/Champagne), het echte "Iris" heeft enkel maten, en daardoor ontbreekt ook de ondertitel/stof (metafields, zie het andere rapport).</p>
+  <div class="pair">
+    <figure><div class="lab"><span>Ontwerp — "Lou set"</span><span class="ok">✓</span></div><a href="images/d_product.png" target="_blank"><img src="images/d_product.png" alt="Ontwerp product"></a></figure>
+    <figure><div class="lab"><span>Shopify v1.1 — "Iris"</span><span class="ok">✓ (content verschilt)</span></div><a href="images/s_product.png" target="_blank"><img src="images/s_product.png" alt="Shopify product"></a></figure>
+  </div>
+</div>
+
+<div class="cmp" style="border-left:3px solid var(--sand)">
+  <div class="ttl"><h2>"Ziet er anders uit", maar is géén design-bug</h2></div>
+  <p class="note">Voor de duidelijkheid — deze dingen <em>ogen</em> anders dan het ontwerp, maar het is <strong>ontbrekende content/configuratie</strong>, niet de styling van het thema (en ze staan al in het andere rapport):</p>
+  <ul style="color:var(--ink70);font-size:15px;max-width:900px;line-height:1.9">
+    <li>Kale collectiekop (titel "Jurken" zónder de ondertitel "Negen silhouetten…") — omdat de collectie geen <em>beschrijving</em> heeft.</li>
+    <li>Chips zonder telling / zonder actieve markering — chips nog niet aan collecties gekoppeld.</li>
+    <li>Filters "Beschikbaarheid · Prijs" i.p.v. "Silhouet · Stof · Lengte" — Search&nbsp;&amp;&nbsp;Discovery niet ingesteld.</li>
+    <li>Demo-producten/-artikels en placeholder-beelden op de homepage — niets gekoppeld.</li>
+  </ul>
+</div>
+
+<footer>Wit — visuele parity · ontwerp vs draft wit-theme-v1-1 · 13 juni 2026 · headless-Chrome captures op gelijke breedte</footer>
+
+</div></body></html>

@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wit — QA-review · Shopify draft v1.1</title>
+<style>
+  :root{
+    --bg:#faf8f4; --surface:#fff; --ink:#1a1a18; --ink70:rgba(26,26,24,.72);
+    --ink50:rgba(26,26,24,.52); --line:#e2dbd0; --sand:#b89b7a;
+    --crit:#b23b3b; --high:#c2772e; --med:#8a8377; --low:#9aa39a; --ok:#4a7c59;
+    --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+    --sans:"Jost",system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:"Courier Prime",ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;}
+  a{color:var(--ink)}
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(32px,5vw,72px) clamp(20px,4vw,56px) 120px}
+  header.top{border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:8px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink50)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,6vw,68px);line-height:1;letter-spacing:-.02em;margin:14px 0 10px}
+  h1 em{font-style:italic;font-weight:400}
+  .lede{max-width:760px;color:var(--ink70);font-size:16px}
+  .verdict{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--ok);padding:20px 24px;margin:28px 0;font-size:15px}
+  .verdict strong{font-weight:500}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 8px}
+  .badge{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;border-radius:999px;color:#fff;white-space:nowrap}
+  .b-crit{background:var(--crit)} .b-high{background:var(--high)} .b-med{background:var(--med)} .b-low{background:var(--low)} .b-fixed{background:var(--ok)}
+  .tag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink50);border:1px solid var(--line);padding:4px 9px;border-radius:3px;white-space:nowrap}
+  .counts{display:flex;flex-wrap:wrap;gap:28px;margin:30px 0 10px;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .counts div{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink50)}
+  .counts b{display:block;font-family:var(--serif);font-size:34px;color:var(--ink);letter-spacing:0}
+  h2.sec{font-family:var(--serif);font-weight:500;font-size:30px;margin:64px 0 6px;letter-spacing:-.01em}
+  h2.sec .n{font-family:var(--mono);font-size:12px;color:var(--ink50);letter-spacing:.1em}
+  .sec-note{color:var(--ink50);font-size:14px;margin:0 0 18px}
+  .issue{background:var(--surface);border:1px solid var(--line);margin:22px 0;overflow:hidden}
+  .issue .head{padding:20px 24px 14px;display:flex;flex-wrap:wrap;align-items:baseline;gap:12px}
+  .issue .num{font-family:var(--serif);font-size:26px;color:var(--sand);min-width:34px}
+  .issue h3{font-family:var(--serif);font-weight:500;font-size:23px;margin:0;flex:1 1 320px;letter-spacing:-.01em}
+  .issue .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .issue .body{padding:0 24px 22px;display:grid;grid-template-columns:1.1fr 1fr;gap:8px 36px}
+  @media(max-width:760px){.issue .body{grid-template-columns:1fr}}
+  .issue dl{margin:0}
+  .issue dt{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink50);margin:14px 0 4px}
+  .issue dd{margin:0;font-size:15px;color:var(--ink70)}
+  .issue dd code,.issue .body code{font-family:var(--mono);font-size:12.5px;background:#f0ece4;padding:1px 5px;color:var(--ink)}
+  .issue dd.fix{color:var(--ink)}
+  .shot{margin:0;border:1px solid var(--line);background:#f0ece4}
+  .shot a{display:block}
+  .shot img{display:block;width:100%;height:auto;max-height:560px;object-fit:cover;object-position:top}
+  .shot figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink50);padding:8px 10px;border-top:1px solid var(--line)}
+  footer.btm{margin-top:80px;padding-top:28px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink50)}
+  .url{font-family:var(--mono);font-size:12px;color:var(--ink50)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="eyebrow">Kritische QA-review · uitgevoerd in de live Shopify-preview</div>
+  <h1>Wit — wat werkt <em>nog niet</em>.</h1>
+  <p class="lede">Doorloop van het draft-thema <code>wit-theme-v1-1</code> op <span class="url">witthelabel.be</span> (Shopify preview, thema-ID 200844378449), pagina per pagina, met de blik van een webdesigner. Elk punt heeft een schermafbeelding (klik om te vergroten).</p>
+</header>
+
+<div class="verdict">
+  <strong>Korte conclusie:</strong> het thema zelf <strong>werkt</strong> — er zijn nauwelijks echte code-bugs. Bijna alles hieronder is <strong>winkel-data/content die nog niet is ingesteld</strong> (collecties, menu's, pagina's, metafields, filters) plus <strong>standaard placeholder-links</strong> die naar niet-bestaande pagina's wijzen. Twee punten (grid-breedte, editoriaal blok) heb ik al opgelost in <strong>v1.2</strong>. De rest is configuratiewerk in Shopify-admin, geen themawijziging.
+</div>
+
+<div class="legend">
+  <span class="badge b-crit">Kritiek — doodlopend</span>
+  <span class="badge b-high">Hoog — nepcontent live</span>
+  <span class="badge b-med">Middel — design/config-gat</span>
+  <span class="badge b-low">Laag — afwerking</span>
+  <span class="badge b-fixed">Al opgelost in v1.2</span>
+</div>
+
+<div class="counts">
+  <div><b>17</b> punten gevonden</div>
+  <div><b>11</b> doodlopende links (404)</div>
+  <div><b>4</b> secties met nepcontent</div>
+  <div><b>2</b> al opgelost (v1.2)</div>
+  <div><b>~0</b> echte themabugs</div>
+</div>
+
+<!-- ============ CRITICAL ============ -->
+<h2 class="sec"><span class="n">A ·</span> Kritiek — doodlopende navigatie</h2>
+<p class="sec-note">Het thema gebruikt op dit moment <em>standaard-fallbacklinks</em> omdat er nog geen Shopify-navigatiemenu's zijn toegewezen. Veel van die links wijzen naar pagina's/collecties die niet bestaan → de bezoeker belandt op de 404.</p>
+
+<div class="issue">
+  <div class="head"><span class="num">01</span><h3>Hoofdmenu: 4 van de 6 links lopen dood (404)</h3>
+    <div class="meta"><span class="badge b-crit">Kritiek</span><span class="tag">Config — menu's</span></div></div>
+  <div class="body">
+    <div>
+      <dl>
+        <dt>Waar</dt><dd>Header-navigatie, elke pagina</dd>
+        <dt>Wat er mis is</dt><dd><code>Shop the look</code> → <code>/pages/lookbook</code>, <code>Journal</code> → <code>/blogs/journal</code>, <code>Over Wit</code> → <code>/pages/over-wit</code> en <code>Onze bruiden</code> → <code>/pages/bruiden</code> geven allemaal <strong>404</strong>. Die pagina's/blog bestaan niet in jouw winkel.</dd>
+        <dt>Fix</dt><dd class="fix">Maak de pagina's + de blog "Journal" aan (Online Store → Pages / Blog posts) en wijs ze toe via een echt <strong>Navigatiemenu</strong> (Online Store → Navigation). Beter nog: het thema laten verwijzen naar het menu i.p.v. hardcoded fallbacks.</dd>
+      </dl>
+    </div>
+    <figure class="shot"><a href="images/broken_404.png" target="_blank"><img src="images/broken_404.png" alt="404-pagina waar de menulinks op uitkomen"></a><figcaption>Waar "Shop the look / Journal / Over Wit / Onze bruiden" op uitkomen</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">02</span><h3>Shop-dropdown: 3 van de 6 categorieën bestaan niet</h3>
+    <div class="meta"><span class="badge b-crit">Kritiek</span><span class="tag">Config — collecties</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Header → Shop ▾</dd>
+      <dt>Wat er mis is</dt><dd><code>/collections/rokken</code>, <code>/collections/tops</code> en <code>/collections/tweedelig</code> → <strong>404</strong>. Jouw echte collecties heten <em>"Broeken &amp; Rokken"</em> en <em>"Bloezen en tops"</em> (andere handles), en <em>"Tweedelig"</em> bestaat helemaal niet. Enkel <code>/collections/jurken</code> en <code>/collections/accessoires</code> werken.</dd>
+      <dt>Fix</dt><dd class="fix">Beslis welke van je 18 collecties de hoofd-navigatie vormen en koppel de juiste handles via een menu. (Zie ook het bredere IA-punt in mijn vorige review.)</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/collection_jurken.png" target="_blank"><img src="images/collection_jurken.png" alt="Collectiepagina met categorie-chips"></a><figcaption>De chips/categorieën — labels kloppen niet met de echte collecties</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">03</span><h3>Footer: 4 links dood + 3 wijzen naar de verkeerde plek</h3>
+    <div class="meta"><span class="badge b-crit">Kritiek</span><span class="tag">Config — menu's</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Footer (elke pagina)</dd>
+      <dt>Wat er mis is</dt><dd><strong>404:</strong> "Op maat" / "Maat &amp; fit" (<code>/pages/maatgids</code>), "Onderhoud" / "FAQ" (<code>/pages/faq</code>), "Verzending" (<code>/pages/verzending</code>), "Retour" (<code>/pages/retour</code>). <strong>Verkeerde bestemming:</strong> "Ceremonie", "Feest", "Separates" wijzen allemaal naar <code>/collections/all</code> (het zijn design-tijd-categorieën die niet bestaan).</dd>
+      <dt>Fix</dt><dd class="fix">Klantenservice-pagina's aanmaken (de sjablonen <code>faq</code>, <code>verzending</code>, <code>retour</code>, <code>maatgids</code> zitten al in het thema) en de footer-menukolommen koppelen aan echte menu's.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/cart.png" target="_blank"><img src="images/cart.png" alt="Footer met links die 404 geven"></a><figcaption>Footer — Hulp/Atelier-kolommen lopen grotendeels dood</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">04</span><h3>Productpagina: "Maatgids ↗" link is dood</h3>
+    <div class="meta"><span class="badge b-crit">Kritiek</span><span class="tag">Config — pagina</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>PDP, naast de maatkeuze</dd>
+      <dt>Wat er mis is</dt><dd>De "Maatgids ↗"-link bij de maten wijst naar <code>/pages/maatgids</code> → <strong>404</strong>.</dd>
+      <dt>Fix</dt><dd class="fix">Maak de maatgids-pagina (sjabloon <code>maatgids</code>) aan; de link werkt dan automatisch.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/product_iris.png" target="_blank"><img src="images/product_iris.png" alt="Productpagina Iris"></a><figcaption>PDP "Iris" — maatkeuze met dode maatgids-link</figcaption></figure>
+  </div>
+</div>
+
+<!-- ============ HIGH ============ -->
+<h2 class="sec"><span class="n">B ·</span> Hoog — placeholder/nepcontent staat live</h2>
+<p class="sec-note">Deze secties tonen <em>verzonnen demo-inhoud</em> omdat er nog geen echte data aan gekoppeld is. Een bezoeker ziet dus producten/artikels die niet bestaan.</p>
+
+<div class="issue">
+  <div class="head"><span class="num">05</span><h3>Homepage "De lente-editie": verzonnen producten</h3>
+    <div class="meta"><span class="badge b-high">Hoog</span><span class="tag">Config — collectie koppelen</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Homepage, sectie "De editie"</dd>
+      <dt>Wat er mis is</dt><dd>Er is geen collectie gekoppeld, dus de sectie toont de <strong>fallback demo-stuks</strong> (Cellan, Maud, Lou Set, Nora Knit met verzonnen prijzen). Klikken leidt naar <code>/collections/all</code>, niet naar een echt product.</dd>
+      <dt>Fix</dt><dd class="fix">In Customize → sectie "De editie" → een echte collectie koppelen. Dan toont hij live producten.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/home.png" target="_blank"><img src="images/home.png" alt="Homepage"></a><figcaption>Homepage — "De lente-editie" toont demo-producten</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">06</span><h3>Homepage "Shop de look": hotspots niet gekoppeld</h3>
+    <div class="meta"><span class="badge b-high">Hoog</span><span class="tag">Config — producten koppelen</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Homepage, sectie "Het vest, open gedragen"</dd>
+      <dt>Wat er mis is</dt><dd>De hotspots/itemlijst tonen demo-namen en -prijzen; de "+"-hotspots koppelen aan geen enkel echt product, dus "toevoegen aan mandje" doet niets.</dd>
+      <dt>Fix</dt><dd class="fix">Per hotspot/blok een echt product koppelen in Customize.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/home.png" target="_blank"><img src="images/home.png" alt="Homepage shop de look"></a><figcaption>Homepage — "Shop de look" met niet-gekoppelde items</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">07</span><h3>Homepage "Journal": nep-artikels</h3>
+    <div class="meta"><span class="badge b-high">Hoog</span><span class="tag">Config — blog koppelen</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Homepage, sectie "Notities, in het wit"</dd>
+      <dt>Wat er mis is</dt><dd>Geen blog gekoppeld → de sectie toont 3 <strong>verzonnen artikelkaarten</strong> met dode links. (En de "Journal"-link in het menu loopt sowieso dood — punt 01.)</dd>
+      <dt>Fix</dt><dd class="fix">Blog "Journal" aanmaken + koppelen in de Journal-sectie.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/home.png" target="_blank"><img src="images/home.png" alt="Homepage journal"></a><figcaption>Homepage — "Journal"-preview met demo-artikels</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">08</span><h3>"Winkels"-pagina is leeg</h3>
+    <div class="meta"><span class="badge b-high">Hoog</span><span class="tag">Config — pagina-inhoud</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd><code>/pages/winkels</code> (bestaat — 200)</dd>
+      <dt>Wat er mis is</dt><dd>De pagina rendert <strong>alleen de titel "Winkels" en dan meteen de footer</strong> — een groot leeg vlak. De ontworpen winkel-locator (Gent &amp; Antwerpen met foto's, openingsuren, route) staat er niet: de Shopify-pagina is op het standaard <code>page</code>-sjabloon gezet met lege inhoud.</dd>
+      <dt>Fix</dt><dd class="fix">De winkel-locator-inhoud toevoegen — ofwel als pagina-inhoud, ofwel een dedicated winkels-sectie/sjabloon koppelen.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/winkels.png" target="_blank"><img src="images/winkels.png" alt="Lege winkels-pagina"></a><figcaption>"Winkels" — enkel een titel, verder leeg</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">09</span><h3>Homepage categorie-tegels: verkeerde labels + bestemming</h3>
+    <div class="meta"><span class="badge b-high">Hoog</span><span class="tag">Config</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Homepage, "Shop per categorie"</dd>
+      <dt>Wat er mis is</dt><dd>Tegels heten "Jurken / Rokken / Tops / Accessoires" — "Rokken" en "Tops" komen niet overeen met je echte collecties, en de links wijzen (net als de chips) niet naar de juiste collectie.</dd>
+      <dt>Fix</dt><dd class="fix">Per tegel beeld + label + echte collectie-link instellen in Customize.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/home.png" target="_blank"><img src="images/home.png" alt="Homepage categorietegels"></a><figcaption>Homepage — categorietegels</figcaption></figure>
+  </div>
+</div>
+
+<!-- ============ MEDIUM ============ -->
+<h2 class="sec"><span class="n">C ·</span> Middel — design- &amp; configuratie-gaten</h2>
+
+<div class="issue">
+  <div class="head"><span class="num">10</span><h3>Categorie-chips: geen aantallen, geen actieve staat, dode link</h3>
+    <div class="meta"><span class="badge b-med">Middel</span><span class="tag">Config — chips koppelen</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Collectiepagina, chip-balk</dd>
+      <dt>Wat er mis is</dt><dd>De chips tonen geen telling (ontwerp: "Jurken · 7"), lichten niet op als actief, en wijzen naar <code>/collections/all</code> — omdat er geen collectie aan elke chip is gekoppeld.</dd>
+      <dt>Fix</dt><dd class="fix">Customize → Collectie-sjabloon → per chip-blok de juiste collectie kiezen. Telling + actieve staat + correcte link verschijnen dan automatisch.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/collection_jurken.png" target="_blank"><img src="images/collection_jurken.png" alt="Collectie chips zonder telling"></a><figcaption>Chips zonder telling/actieve staat</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">11</span><h3>Filters: alleen "Beschikbaarheid" en "Prijs"</h3>
+    <div class="meta"><span class="badge b-med">Middel</span><span class="tag">Config — Search &amp; Discovery</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Collectiepagina, filterbalk</dd>
+      <dt>Wat er mis is</dt><dd>Je ziet enkel Shopify's standaardfilters (Beschikbaarheid + Prijs), niet de ontworpen <em>Silhouet / Stof / Lengte</em>. Die waren in het ontwerp statische labels en bestaan nog niet als echte filters.</dd>
+      <dt>Fix</dt><dd class="fix">Via de <strong>Search &amp; Discovery</strong>-app filters maken op basis van metafields/tags. Het thema toont ze dan vanzelf.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/collection_jurken.png" target="_blank"><img src="images/collection_jurken.png" alt="Filterbalk met enkel standaardfilters"></a><figcaption>Filterbalk — enkel de standaardfilters</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">12</span><h3>Grid bleef hangen op 1400px (niet pagina-breed)</h3>
+    <div class="meta"><span class="badge b-fixed">Al opgelost · v1.2</span><span class="tag">Theme</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Collectiepagina, op brede/4K-schermen</dd>
+      <dt>Wat er mis is</dt><dd>In v1.1 zat de hele collectie (chips, filters, grid) in een wrapper van max. 1400px → veel lege ruimte op grote schermen, terwijl het ontwerp full-bleed is.</dd>
+      <dt>Fix</dt><dd class="fix"><strong>Al gefixt in v1.2:</strong> grid loopt full-bleed + 5/6 kolommen op brede schermen; enkel de kop blijft gecentreerd.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/collection_jurken.png" target="_blank"><img src="images/collection_jurken.png" alt="Smalle grid op breed scherm (v1.1)"></a><figcaption>v1.1 op 2560px — grid blijft smal, lege marges (opgelost in v1.2)</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">13</span><h3>Campagnebeeld geïnjecteerd in élke collectie</h3>
+    <div class="meta"><span class="badge b-fixed">Al opgelost · v1.2</span><span class="tag">Theme default</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Elke collectiepagina, midden in het grid</dd>
+      <dt>Wat er mis is</dt><dd>Het editoriale "Campagne — Lente '26"-blok (placeholder-beeld + demo-tekst) werd standaard ná product 3 ingevoegd in <em>elke</em> collectie — op kleine collecties (Jurken: 4 stuks) strandt daardoor een los product onder het beeld.</dd>
+      <dt>Fix</dt><dd class="fix"><strong>Al gefixt in v1.2:</strong> de editoriale blokken zitten niet meer standaard in het sjabloon (opt-in per collectie) + een waarborg dat een blok nooit een los laatste stuk strandt.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/collection_all.png" target="_blank"><img src="images/collection_all.png" alt="Campagnebeeld midden in collectie"></a><figcaption>Campagne-placeholder midden in "Producten" (opgelost in v1.2)</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">14</span><h3>Collectiekop is kaal (geen subtitel)</h3>
+    <div class="meta"><span class="badge b-med">Middel</span><span class="tag">Config — beschrijving</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Collectiepagina-kop</dd>
+      <dt>Wat er mis is</dt><dd>De titel is de ruwe collectienaam ("Jurken", "Producten") zónder de ontworpen subtitel/intro ("Negen silhouetten…"), omdat de collectie geen <em>beschrijving</em> heeft.</dd>
+      <dt>Fix</dt><dd class="fix">Vul de collectiebeschrijving in (admin → Collections) — die verschijnt als subtitel. Overweeg "Producten" (alle-collectie) een mooiere titel te geven.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/collection_all.png" target="_blank"><img src="images/collection_all.png" alt="Kale collectiekop"></a><figcaption>"Producten" — kop zonder subtitel</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">15</span><h3>Alle beelden zijn nog demo-placeholders</h3>
+    <div class="meta"><span class="badge b-med">Middel</span><span class="tag">Content — beeldmateriaal</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Hero, categorietegels, editoriaal, Instagram — overal waar geen beeld is ingesteld</dd>
+      <dt>Wat er mis is</dt><dd>Het thema valt terug op de meegeleverde demo-foto's (<code>look-01…12.jpg</code>). Mooi, maar het is stockmateriaal — niet per se jullie echte campagne/sfeerbeelden voor die secties.</dd>
+      <dt>Fix</dt><dd class="fix">Per sectie het eigen beeld uploaden in Customize.</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/home.png" target="_blank"><img src="images/home.png" alt="Homepage met demobeelden"></a><figcaption>Homepage — secties met demobeeld</figcaption></figure>
+  </div>
+</div>
+
+<div class="issue">
+  <div class="head"><span class="num">16</span><h3>Instagram-grid is demo + dode links</h3>
+    <div class="meta"><span class="badge b-med">Middel</span><span class="tag">Content</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Homepage, "Gezien in Wit"</dd>
+      <dt>Wat er mis is</dt><dd>Demobeelden, generieke handle, en de tegels linken naar <code>#</code> — geen echte Instagram-koppeling.</dd>
+      <dt>Fix</dt><dd class="fix">Echte beelden + Instagram-handle/-link instellen (of een IG-feed-app gebruiken).</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/home.png" target="_blank"><img src="images/home.png" alt="Instagram grid"></a><figcaption>Homepage — Instagram-grid (demo)</figcaption></figure>
+  </div>
+</div>
+
+<!-- ============ LOW ============ -->
+<h2 class="sec"><span class="n">D ·</span> Laag — afwerking</h2>
+
+<div class="issue">
+  <div class="head"><span class="num">17</span><h3>PDP mist ondertitel + "Stof &amp; onderhoud"</h3>
+    <div class="meta"><span class="badge b-low">Laag</span><span class="tag">Config — metafields</span></div></div>
+  <div class="body">
+    <div><dl>
+      <dt>Waar</dt><dd>Productpagina</dd>
+      <dt>Wat er mis is</dt><dd>Onder de titel ontbreekt de ondertitel en het accordeon "Stof &amp; onderhoud" verschijnt niet, omdat de metafields <code>custom.subtitle</code> en <code>custom.fabric</code> niet ingevuld zijn. De rest van de PDP (galerij, maten, in-de-tas, "Maak de look af") werkt goed.</dd>
+      <dt>Fix</dt><dd class="fix">Metafield-definities <code>custom.subtitle</code> + <code>custom.fabric</code> aanmaken en per product invullen (optioneel).</dd>
+    </dl></div>
+    <figure class="shot"><a href="images/product_iris.png" target="_blank"><img src="images/product_iris.png" alt="PDP zonder ondertitel/stof"></a><figcaption>PDP "Iris" — werkt, maar zonder ondertitel/stof-accordeon</figcaption></figure>
+  </div>
+</div>
+
+<h2 class="sec"><span class="n">E ·</span> Wat wél goed werkt</h2>
+<p class="sec-note">Voor de balans — dit functioneerde correct in de preview:</p>
+<div class="issue"><div class="body" style="grid-template-columns:1fr 1fr 1fr;padding:22px 24px">
+  <div><dt style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink50)">Productpagina</dt><dd style="font-size:15px;color:var(--ink70)">Galerij, maatkeuze, prijs, in-de-tas, "Maak de look af" tonen echte producten.</dd></div>
+  <div><dt style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink50)">Mandje</dt><dd style="font-size:15px;color:var(--ink70)">Nette lege-staat ("Je mandje is nog leeg") + werkende CTA.</dd></div>
+  <div><dt style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink50)">Zoeken</dt><dd style="font-size:15px;color:var(--ink70)">"7 resultaten voor jurk" met echte producten in het grid.</dd></div>
+  <div><dt style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink50)">404</dt><dd style="font-size:15px;color:var(--ink70)">Mooi gethematiseerde 404 met CTA — het probleem is dat menulinks erop uitkomen.</dd></div>
+  <div><dt style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink50)">Header/footer/typografie</dt><dd style="font-size:15px;color:var(--ink70)">Wordmark, lettertypes (Cormorant/Jost), aankondigingsbalk — allemaal correct.</dd></div>
+  <div><dt style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink50)">Collectie /jurken /all /accessoires</dt><dd style="font-size:15px;color:var(--ink70)">Tonen echte producten met juiste prijzen; sorteren werkt.</dd></div>
+</div></div>
+
+<footer class="btm">
+  Wit — QA-review · draft <code>wit-theme-v1-1</code> (Shopify, witthelabel.be) · 13 juni 2026 · screenshots via headless Chrome op <code>?preview_theme_id=200844378449</code>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wit — Visuele afwijkingen · ontwerp vs Shopify v1.1</title>
+<style>
+  :root{
+    --bg:#faf8f4;--surface:#fff;--ink:#1a1a18;--ink70:rgba(26,26,24,.72);--ink50:rgba(26,26,24,.52);
+    --line:#e2dbd0;--sand:#b89b7a;--high:#b23b3b;--med:#c2772e;--fixed:#3f6f4d;--match:#4a7c59;
+    --serif:"Cormorant Garamond",Georgia,serif;--sans:"Jost",system-ui,sans-serif;--mono:"Courier Prime",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6}
+  a{color:var(--ink)}
+  .wrap{max-width:1180px;margin:0 auto;padding:clamp(32px,5vw,72px) clamp(20px,4vw,56px) 120px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink50)}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,6vw,64px);line-height:1;letter-spacing:-.02em;margin:14px 0 10px}
+  h1 em{font-style:italic;font-weight:400}
+  .lede{max-width:820px;color:var(--ink70);font-size:16px}
+  .nav-links{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:18px 0 0}
+  .nav-links a{color:var(--sand)}
+  .verdict{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--high);padding:20px 24px;margin:26px 0;font-size:15px}
+  .verdict strong{font-weight:500}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+  .badge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;padding:5px 11px;border-radius:999px;color:#fff;white-space:nowrap}
+  .b-high{background:var(--high)} .b-med{background:var(--med)} .b-fixed{background:var(--fixed)} .b-match{background:var(--match)} .b-open{background:#6b6760}
+  .counts{display:flex;flex-wrap:wrap;gap:26px;margin:26px 0;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .counts div{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink50)}
+  .counts b{display:block;font-family:var(--serif);font-size:32px;color:var(--ink);letter-spacing:0}
+  h2.sec{font-family:var(--serif);font-weight:500;font-size:30px;margin:60px 0 4px;letter-spacing:-.01em}
+  h2.sec .n{font-family:var(--mono);font-size:12px;color:var(--ink50);letter-spacing:.1em}
+  .sec-note{color:var(--ink50);font-size:14px;margin:0 0 18px;max-width:820px}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 8px}
+  @media(max-width:720px){.pair{grid-template-columns:1fr}}
+  figure{margin:0;border:1px solid var(--line);background:#f0ece4}
+  figure .lab{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink50);padding:8px 10px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+  figure .lab .ok{color:var(--match)} figure .lab .no{color:var(--high)}
+  figure a{display:block} figure img{display:block;width:100%;height:auto}
+  table.diff{width:100%;border-collapse:collapse;margin:14px 0 6px;font-size:14px}
+  table.diff th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink50);font-weight:400;padding:8px 12px;border-bottom:1px solid var(--line)}
+  table.diff td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink70)}
+  table.diff td.what{color:var(--ink);width:24%}
+  table.diff td code{font-family:var(--mono);font-size:12px;background:#f0ece4;padding:1px 5px}
+  table.diff td .sv{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:999px;color:#fff}
+  .sv.h{background:var(--high)} .sv.m{background:var(--med)}
+  .fix{background:var(--surface);border:1px solid var(--line);padding:12px 16px;margin:10px 0 0;font-size:14px;color:var(--ink70)}
+  .fix b{color:var(--ink);font-weight:500}
+  footer{margin-top:70px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink50)}
+</style>
+</head>
+<body><div class="wrap">
+
+<div class="eyebrow">Visuele afwijkingen · ontwerp (meusini.github.io/wit-website) vs Shopify-draft v1.1 · bron-geverifieerd</div>
+<h1>Waar het thema er <em>anders uitziet</em> dan het ontwerp.</h1>
+<p class="lede">Geen content/configuratie-zaken — enkel echte <strong>styling-afwijkingen die in het thema gebakken zitten</strong> en visueel afwijken van het ontwerp bij dezelfde inhoud. Gevonden door de CSS van beide regel voor regel te vergelijken (10 componenten) en bevestigd met side-by-side renders op gelijke breedte.</p>
+<p class="nav-links">Zie ook: <a href="visual-parity.html">overzicht parity</a> · <a href="index.html">content/config-rapport</a></p>
+
+<div class="verdict">
+  <strong>Conclusie:</strong> de fundamenten kloppen — kleur-tokens, typografie-schaal, header/navigatie, productkaart en winkelmandje zijn <strong>byte-identiek of triviaal anders</strong>. Maar drie zones zijn echt afwijkend: de <strong>productpagina</strong> (serif/mono i.p.v. sans, andere kolomverhouding, ontbrekende kleurstalen — 10 punten), de <strong>categorie-labels</strong> (wit over beeld i.p.v. donker onder beeld — tegen de ontwerpspec in), en de <strong>footer op mobiel</strong> (kolommen lopen van het scherm). De collectie-breedte en het campagne-blok waren ook afwijkend maar zijn <strong>al opgelost in v1.2</strong>.
+</div>
+
+<div class="legend">
+  <span class="badge b-high">Hoog</span><span class="badge b-med">Middel</span>
+  <span class="badge b-open">Open (nog te fixen)</span><span class="badge b-fixed">Opgelost v1.2</span><span class="badge b-match">Komt overeen</span>
+</div>
+<div class="counts">
+  <div><b>~20</b> bevestigde afwijkingen</div>
+  <div><b>10</b> op de productpagina</div>
+  <div><b>4</b> op de homepage</div>
+  <div><b>2</b> al opgelost (v1.2)</div>
+  <div><b>5</b> componenten getrouw</div>
+</div>
+
+<!-- ===================== A. PRODUCT ===================== -->
+<h2 class="sec"><span class="n">A ·</span> Productpagina — de grootste afwijking</h2>
+<p class="sec-note">De PDP is in het thema her-gestyled i.p.v. 1-op-1 overgenomen: serif/monospace waar het ontwerp sans gebruikt, een 50/50-kolom i.p.v. een vaste 480px koopkolom, en de kleurstalen ontbreken. Alles staat <span class="badge b-open" style="padding:2px 8px">Open</span></p>
+<div class="pair">
+  <figure><div class="lab"><span>Ontwerp — "Lou set"</span><span class="ok">referentie</span></div><a href="images/d_product.png" target="_blank"><img src="images/d_product.png" alt="Ontwerp PDP"></a></figure>
+  <figure><div class="lab"><span>Shopify v1.1 — "Iris"</span><span class="no">wijkt af</span></div><a href="images/s_product.png" target="_blank"><img src="images/s_product.png" alt="Shopify PDP"></a></figure>
+</div>
+<table class="diff">
+  <tr><th>Element</th><th>Ontwerp</th><th>Thema v1.1</th><th>Effect</th></tr>
+  <tr><td class="what">Koopkolom <span class="sv h">Hoog</span></td><td><code>1fr 480px</code> (vast)</td><td><code>1fr 1fr</code> (50%)</td><td>Op breed scherm is de koopkolom veel te breed, galerij te smal.</td></tr>
+  <tr><td class="what">Prijs <span class="sv h">Hoog</span></td><td>18px Jost <b>sans</b></td><td>26px Cormorant <b>serif</b></td><td>Compleet andere prijs-typografie en -grootte.</td></tr>
+  <tr><td class="what">Accordeon-koppen <span class="sv h">Hoog</span></td><td>12px <b>hoofdletters sans</b></td><td>18px <b>serif, gewone case</b></td><td>"Omschrijving / Verzending…" zien er heel anders uit.</td></tr>
+  <tr><td class="what">Tag · optielabels · optiepillen · perks <span class="sv h">Hoog</span></td><td>Jost sans</td><td><b>monospace</b> (Courier)</td><td>Typmachine-letter door de hele infokolom i.p.v. sans.</td></tr>
+  <tr><td class="what">Ondertitel <span class="sv h">Hoog</span></td><td>17px <b>cursief Cormorant</b></td><td>15px sans, recht</td><td>Andere stem en kleiner.</td></tr>
+  <tr><td class="what">Kleurstalen <span class="sv h">Hoog</span></td><td>rond kleurbolletje (<code>.opt-color</code>)</td><td>niet geïmplementeerd</td><td>Kleuren tonen als platte tekst-pillen i.p.v. swatches.</td></tr>
+  <tr><td class="what">Uitverkochte maat <span class="sv m">Mid</span></td><td>doorgestreept + gedimd</td><td>geen pill-status</td><td>Niet-leverbare maat ziet er identiek uit aan een leverbare.</td></tr>
+  <tr><td class="what">Titel-grootte <span class="sv m">Mid</span></td><td>max 48px</td><td>max 64px</td><td>Producttitel groeit veel groter op breed scherm.</td></tr>
+  <tr><td class="what">Galerij-uitsnede <span class="sv m">Mid</span></td><td>3:4 tegels, 4:3 breed beeld</td><td>4:5 tegels, 16:10 breed</td><td>Zichtbaar andere bijsnijding/hoogte van de foto's.</td></tr>
+  <tr><td class="what">Knoppen / qty <span class="sv m">Mid</span></td><td>56px hoog; prijs-haarlijn; perk-bullets (·)</td><td>48px; geen scheidingslijn; geen bullets</td><td>Lagere CTA + ontbrekende scheidingen/bullets.</td></tr>
+</table>
+<div class="fix"><b>Fix:</b> de exacte waarden uit <code>site/product.html</code> terugzetten in <code>sections/main-product.liquid</code> (font-families, 480px-kolom, 56px-knoppen, <code>.opt-color</code>-swatch, <code>.opt-pill.oos</code>, galerij-ratio's, prijs-haarlijn + perk-bullets).</div>
+
+<!-- ===================== B. HOMEPAGE ===================== -->
+<h2 class="sec"><span class="n">B ·</span> Homepage</h2>
+
+<p class="sec-note"><b>Categorie-labels</b> — het ontwerp zet het label <em>donker, onder het beeld</em>, met een haarlijntje (de spec zegt letterlijk "label below the image, not overlaid"); het thema legt het <em>wit over het beeld</em> op een donkere gradient. <span class="badge b-high" style="padding:2px 8px">Hoog</span> <span class="badge b-open" style="padding:2px 8px">Open</span></p>
+<div class="pair">
+  <figure><div class="lab"><span>Ontwerp — label onder beeld, donker</span><span class="ok">referentie</span></div><a href="images/d_categories.png" target="_blank"><img src="images/d_categories.png" alt="Ontwerp categorieën"></a></figure>
+  <figure><div class="lab"><span>Shopify v1.1 — label over beeld, wit</span><span class="no">wijkt af</span></div><a href="images/s_categories_full.png" target="_blank"><img src="images/s_categories_full.png" alt="Shopify categorieën"></a></figure>
+</div>
+<table class="diff">
+  <tr><th>Element</th><th>Ontwerp</th><th>Thema v1.1</th><th>Effect</th></tr>
+  <tr><td class="what">Categorie-label <span class="sv h">Hoog</span></td><td>onder beeld, <code>color:var(--ink)</code>, haarlijn eronder, baseline</td><td><code>position:absolute; bottom:0; color:#fff</code>, donkere gradient</td><td>Witte tekst over de foto i.p.v. donkere tekst eronder met streepje.</td></tr>
+  <tr><td class="what">Positie categorieën <span class="sv m">Mid</span></td><td>top-padding <code>clamp(24px,3vw,48px)</code></td><td><code>var(--section-y)</code> = 80–160px</td><td>Het categorieblok zit veel lager / losser van de sectie erboven.</td></tr>
+  <tr><td class="what">Hero op mobiel <span class="sv m">Mid</span></td><td><code>90vh</code></td><td><code>64vh</code></td><td>Op telefoon is de hero een korte band i.p.v. bijna schermvullend.</td></tr>
+  <tr><td class="what">Intro-blok <span class="sv m">Mid</span></td><td>max-width 1180px; ruimer; line-height 1.3</td><td>1100px; krapper padding; line-height 1.18</td><td>Intro oogt smaller en compacter dan het luchtige ontwerp.</td></tr>
+</table>
+<div class="fix"><b>Fix:</b> <code>.cat-label</code> terug naar onder-het-beeld + donker + haarlijn; <code>.categories</code> top-padding naar de ontwerpswaarde; mobiele hero naar 90vh; intro-breedte/padding/line-height gelijktrekken.</div>
+
+<!-- ===================== C. COLLECTION ===================== -->
+<h2 class="sec"><span class="n">C ·</span> Collectiepagina</h2>
+<p class="sec-note">De full-bleed breedte en het strandende campagne-blok waren afwijkend maar zijn <b>al opgelost in v1.2</b>. De rest staat nog open.</p>
+<div class="pair">
+  <figure><div class="lab"><span>Ontwerp (2560px) — full-bleed</span><span class="ok">referentie</span></div><a href="images/d_shop_wide.png" target="_blank"><img src="images/d_shop_wide.png" alt="Ontwerp collectie breed"></a></figure>
+  <figure><div class="lab"><span>Shopify v1.1 (2560px) — smal</span><span class="no">opgelost in v1.2</span></div><a href="images/s_shop_wide.png" target="_blank"><img src="images/s_shop_wide.png" alt="Shopify collectie breed"></a></figure>
+</div>
+<table class="diff">
+  <tr><th>Element</th><th>Ontwerp</th><th>Thema v1.1</th><th>Status / effect</th></tr>
+  <tr><td class="what">Volle breedte <span class="sv h">Hoog</span></td><td>full-bleed</td><td>gecapt op 1400px</td><td><b style="color:var(--fixed)">Opgelost v1.2.</b></td></tr>
+  <tr><td class="what">Campagne strandt product <span class="sv h">Hoog</span></td><td>nette rijen van 4</td><td>campagne na #3 → los stuk</td><td><b style="color:var(--fixed)">Opgelost v1.2.</b></td></tr>
+  <tr><td class="what">Filterbalk-font <span class="sv h">Hoog</span></td><td>Jost <b>sans</b></td><td><b>monospace</b></td><td>Open — andere letter door de hele filterbalk.</td></tr>
+  <tr><td class="what">Filterbalk sticky-offset <span class="sv h">Hoog</span></td><td><code>top:108px</code> (onder header)</td><td><code>top:0</code></td><td>Open — balk plakt achter/onder de header i.p.v. eronder.</td></tr>
+  <tr><td class="what">Productrij-tussenruimte <span class="sv h">Hoog</span></td><td>row-gap ~40–64px</td><td>~20–32px</td><td>Open — grid leest dichter/minder luchtig.</td></tr>
+  <tr><td class="what">Tablet-kolommen (≤1024px) <span class="sv h">Hoog</span></td><td>2 kolommen</td><td>3 kolommen</td><td>Open — kaarten merkbaar smaller op tablet.</td></tr>
+  <tr><td class="what">Chips + kop <span class="sv m">Mid</span></td><td>sans chips, 1 scrollende rij; geen "Collectie"-eyebrow; cursief-serif ondertitel</td><td>mono chips die wrappen; extra "Collectie"-eyebrow; bodytekst-ondertitel</td><td>Open — meerdere kleinere kop/chip-verschillen.</td></tr>
+</table>
+<div class="fix"><b>Fix:</b> filterbalk + chips naar sans, sticky <code>top</code> = headerhoogte, grid-gap en tablet-breakpoint (2-kol) gelijktrekken, "Collectie"-eyebrow weg, ondertitel als cursief serif. (Breedte + campagne zitten al in v1.2.)</div>
+
+<!-- ===================== D. FOOTER ===================== -->
+<h2 class="sec"><span class="n">D ·</span> Footer op mobiel</h2>
+<p class="sec-note">Het thema mist de responsieve footer-regels van het ontwerp, dus op telefoon blijven de 5 kolommen naast elkaar staan en lopen ze van het scherm. <span class="badge b-high" style="padding:2px 8px">Hoog</span> <span class="badge b-open" style="padding:2px 8px">Open</span></p>
+<div class="pair">
+  <figure><div class="lab"><span>Ontwerp (430px) — netjes gestapeld</span><span class="ok">referentie</span></div><a href="images/d_footer_mobile.png" target="_blank"><img src="images/d_footer_mobile.png" alt="Ontwerp footer mobiel"></a></figure>
+  <figure><div class="lab"><span>Shopify v1.1 (430px) — loopt van het scherm</span><span class="no">wijkt af</span></div><a href="images/s_footer_mobile.png" target="_blank"><img src="images/s_footer_mobile.png" alt="Shopify footer mobiel"></a></figure>
+</div>
+<div class="fix"><b>Fix:</b> de footer-media-queries uit <code>site/styles.css</code> (≤860px → 2 kolommen + brand full-width; bottom-rij stapelt) overnemen in <code>wit-base.css</code>.</div>
+
+<!-- ===================== E. FAITHFUL ===================== -->
+<h2 class="sec"><span class="n">E ·</span> Wat wél getrouw is</h2>
+<div class="pair">
+  <figure><div class="lab"><span>Ontwerp — hero</span><span class="ok">✓</span></div><a href="images/d_hero.png" target="_blank"><img src="images/d_hero.png" alt="Ontwerp hero"></a></figure>
+  <figure><div class="lab"><span>Shopify v1.1 — hero</span><span class="ok">✓ identiek</span></div><a href="images/s_hero.png" target="_blank"><img src="images/s_hero.png" alt="Shopify hero"></a></figure>
+</div>
+<p class="sec-note" style="margin-top:14px">Verder byte-identiek of triviaal anders: <b>kleur-tokens</b> (ivoor/inkt/steen), <b>typografie-schaal</b> (Cormorant/Jost/Courier, knoppen, links), <b>header &amp; navigatie</b> (dropdown, mandje-icoon, logo), <b>productkaart</b> in het grid, en het <b>winkelmandje</b>. Hier is geen actie nodig.</p>
+
+<footer>Wit — visuele afwijkingen · ontwerp vs draft wit-theme-v1-1 · 13 juni 2026 · CSS-diff (10 componenten) + headless-Chrome renders op gelijke breedte</footer>
+
+</div></body></html>
